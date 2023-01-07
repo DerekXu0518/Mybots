@@ -1,10 +1,21 @@
+# import necessary conditions
 import pybullet as p
 import time
+import pybullet_data
 
-physicsClient = p.connect(p.GUI)
-for t in range(1,1000):
+physicsClient= p.connect(p.GUI)
+p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+p.setGravity(0, 0, -9.8)
+
+planeId = p.loadURDF("plane.urdf")
+robotId = p.loadURDF("body.urdf")
+
+p.loadSDF("world.sdf")
+for t in range(1, 1000):
     p.stepSimulation()
-    time.sleep(1/60)
+    time.sleep(1 / 60)
     print(t)
 p.disconnect()
 
+j
