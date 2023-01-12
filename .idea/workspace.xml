@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eae1a15f-1733-463f-9bdc-0e92479ac9b5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/data/backLegTargetAngles.npy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/frontLegTargetAngles.npy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/targetAngles.npy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/backLegSensorValues.npy" beforeDir="false" afterPath="$PROJECT_DIR$/data/backLegSensorValues.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/frontLegSensorValues.npy" beforeDir="false" afterPath="$PROJECT_DIR$/data/frontLegSensorValues.npy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generate.py" beforeDir="false" afterPath="$PROJECT_DIR$/generate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analyze.py" beforeDir="false" afterPath="$PROJECT_DIR$/analyze.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulate.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/world.sdf" beforeDir="false" afterPath="$PROJECT_DIR$/world.sdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
