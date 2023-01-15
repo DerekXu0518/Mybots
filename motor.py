@@ -5,9 +5,8 @@ import constants as c
 
 
 class MOTOR:
-    def __init__(self, jointName, parent_robot):
+    def __init__(self, jointName):
         self.jointName = jointName
-        self.parent = parent_robot
         self.Prepare_To_Act()
 
     def Prepare_To_Act(self):
@@ -17,9 +16,9 @@ class MOTOR:
         self.X = numpy.linspace(self.offset, 2 * self.frequency * numpy.pi + self.offset, 1000)
         self.motorValues = numpy.sin(self.X) * self.amplitude
 
-    def Set_Value(self, t):
+    def Set_Value(self, t, robotId):
         pyrosim.Set_Motor_For_Joint(
-            bodyIndex=self.parent.robotId,
+            bodyIndex=robotId,
             jointName=self.jointName,
             controlMode=p.POSITION_CONTROL,
             targetPosition=self.motorValues[t],
