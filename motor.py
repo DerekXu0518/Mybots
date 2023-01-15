@@ -1,28 +1,25 @@
 import pybullet as p
 import numpy
 import pyrosim.pyrosim as pyrosim
+import constants as c
 
 
 class MOTOR:
-    def __init__(self, jointName):
+    def __init__(self, jointName, parent_robot):
         self.jointName = jointName
+        self.parent = parent_robot
         self.Prepare_To_Act()
 
-
-    def Prepare_To_Act(self, amplitude, frequency, offset):
-        self.amplitude = amplitude
-        self.frequency = frequency
-        self.offset = offset
-        amplitude = 0.8
-        frequency = 10
-        offset = 0
+    def Prepare_To_Act(self):
+        self.amplitude = c.backLegAmplitude
+        self.frequency = c.backLegFrequency
+        self.offset = c.backLegPhaseOffset
         self.X = numpy.linspace(self.offset, 2 * self.frequency * numpy.pi + self.offset, 1000)
         self.motorValues = numpy.sin(self.X) * self.amplitude
 
-
     def Set_Value(self, t):
-            pyrosim.Set_Motor_For_Joint(
-            bodyIndex=self.robotId,
+        pyrosim.Set_Motor_For_Joint(
+            bodyIndex=self.parent.robotId,
             jointName=self.jointName,
             controlMode=p.POSITION_CONTROL,
             targetPosition=self.motorValues[t],

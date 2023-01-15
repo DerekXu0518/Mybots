@@ -7,12 +7,12 @@ from robot import ROBOT
 
 
 class SIMULATION:
-    def __init__(self):
-        # see computer conditions
-        self.physicsClient = p.connect(p.GUI)
-        p.setAdditionalSearchPath(pybullet_data.getDataPath())
-        p.setGravity(0, 0, -9.8)
+    # see computer conditions
+    physicsClient = p.connect(p.GUI)
+    p.setAdditionalSearchPath(pybullet_data.getDataPath())
+    p.setGravity(0, 0, -9.8)
 
+    def __init__(self):
         self.world = WORLD()
         self.robot = ROBOT()
 
@@ -22,7 +22,6 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.Act(t)
             time.sleep(1 / 60)
-
 
     def __del__(self):
         p.disconnect()
