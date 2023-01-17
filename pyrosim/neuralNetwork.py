@@ -1,4 +1,4 @@
-from pyrosim.neuron  import NEURON
+from pyrosim.neuron import NEURON
 
 from pyrosim.synapse import SYNAPSE
 
