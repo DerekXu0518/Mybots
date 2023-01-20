@@ -9,3 +9,6 @@ Offset = 0
 frontLegAmplitude = 0.9
 frontLegFrequency = 10.5
 frontLegPhaseOffset = 0.0
+
+
+numberOfGenerations = 10
