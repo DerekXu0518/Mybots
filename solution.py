@@ -67,9 +67,9 @@ class SOLUTION:
     
 		pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
     
-		for currentRow in range(2):
+		for currentRow in range(3):
         
-			for currentColumn in range(1):
+			for currentColumn in range(2):
             
 				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=random.uniform(-1,1))
     
