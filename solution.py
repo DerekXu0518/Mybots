@@ -1,7 +1,6 @@
 import numpy
 import os
 import pyrosim.pyrosim as pyrosim
-from pyrosim.neuralNetwork import NEURAL_NETWORK as nn
 import random
 
 
@@ -12,7 +11,7 @@ class SOLUTION:
 
 		self.weights = numpy.random.rand(3, 2) * 2 - 1
 
-	def Evaluate(self):
+	def Evaluate(self, directOrGUI):
 
 		self.Create_World()
 
@@ -20,7 +19,9 @@ class SOLUTION:
 
 		self.Generate_Brain()
 
-		os.system("python simulate.py GUI")
+		self.directOrGUI = directOrGUI
+
+		os.system("python3 simulate.py "+str(self.directOrGUI))
 
 		f=open('Fitness.txt', 'r')
 

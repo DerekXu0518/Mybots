@@ -1,6 +1,7 @@
 from solution import SOLUTION
 import constants as c
 import copy
+import os
 
 
 class HILL_CLIMBER:
@@ -11,7 +12,7 @@ class HILL_CLIMBER:
 
 	def Evolve(self):
 
-		self.parent.Evaluate()
+		self.parent.Evaluate("GUI")
 
 		for currentGeneration in range(1, c.numberOfGenerations):
 
@@ -23,7 +24,7 @@ class HILL_CLIMBER:
 
 		self.Mutate()
 
-		self.child.Evaluate()
+		self.child.Evaluate("DIRECT")
 
 		self.Select()
 
@@ -47,3 +48,7 @@ class HILL_CLIMBER:
 	def Print(self):
 
 		print(self.parent.fitness, self.child.fitness)
+
+	def Show_Best(self):
+
+		os.system("python3 simulate.py GUI")
