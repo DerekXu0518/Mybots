@@ -31,11 +31,9 @@ def Generate_Brain():
     #pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=4, weight=1.0)
     #pyrosim.Send_Synapse(sourceNeuronName=2, targetNeuronName=4, weight=1.0)
     #pyrosim.End()
-    for sensorNeuron in nn.neurons:
-        if nn.neurons[sensorNeuron].Is_Sensor_Neuron():
-            for motorNeuron in nn.neurons:
-                if nn.neurons[sensorNeuron].Is_Motor_Neuron():
-                    pyrosim.Send_Synapse(sourceNeuronName=sensorNeuron, targetNeuronName=motorNeuron, weight=1.0)
+    for sensorNeuron in ['0', '1' ,'2']:
+        for motorNeuron in ['3', '4']:
+            pyrosim.Send_Synapse(sourceNeuronName=sensorNeuron, targetNeuronName=motorNeuron, weight=random.uniform(-1,1))
     pyrosim.End()
 
 
