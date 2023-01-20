@@ -2,14 +2,17 @@ import numpy
 import os
 import pyrosim.pyrosim as pyrosim
 import random
+import constants as c
 
 
 
 class SOLUTION:
 
-	def __init__(self):
+	def __init__(self, nextAvailableID):
 
 		self.weights = numpy.random.rand(3, 2) * 2 - 1
+
+		self.myID = nextAvailableID
 
 	def Evaluate(self, directOrGUI):
 
@@ -21,7 +24,7 @@ class SOLUTION:
 
 		self.directOrGUI = directOrGUI
 
-		os.system("python3 simulate.py "+str(self.directOrGUI))
+		os.system("python3 simulate.py " + directOrGUI + " &")
 
 		f=open('Fitness.txt', 'r')
 
@@ -54,26 +57,28 @@ class SOLUTION:
 		pyrosim.End()
 
 	def Generate_Brain(self):
+
+		for i in range(0, c.populationSize):
+
+			pyrosim.Start_NeuralNetwork("brain"+str(i)+".nndf")
     
-		pyrosim.Start_NeuralNetwork("brain.nndf")
+			pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
     
-		pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
+			pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
     
-		pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
+			pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
     
-		pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
+			pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
     
-		pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
+			pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
     
-		pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
-    
-		for currentRow in range(2):
+			for currentRow in range(3):
         
-			for currentColumn in range(1):
+				for currentColumn in range(2):
             
-				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=random.uniform(-1,1))
+					pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=random.uniform(-1,1))
     
-		pyrosim.End()
+			pyrosim.End()
 
 	def Mutate(self):
 
@@ -82,6 +87,10 @@ class SOLUTION:
 		randomColumn = random.randint(0,1)
 
 		self.weights[randomRow, randomColumn] = random.random()*2-1
+
+	def Set_ID(self):
+
+		self.child.ID = self.myID
 
 
 
