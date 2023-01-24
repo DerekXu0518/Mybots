@@ -2,30 +2,38 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import glob
 
 
 class PARALLEL_HILL_CLIMBER:
 
 	def __init__(self):
 
+		#for b in glob.glob("brain*.nndf"):
+
+		#	os.remove(b)
+
+		#for f in glob.glob("Fitness*.txt"):
+
+		#	os.remove(f)
+
 		self.parent ={}
 
-		self.nextAvailableID = 0.0
+		self.nextAvailableID = 0
 
 		for i in range(0, c.populationSize):
 
-			self.parent[i] = SOLUTION(self.nextAvailableID+1)
+			self.parent[i] = SOLUTION(self.nextAvailableID)
 
+			self.nextAvailableID += 1
 
 	def Evolve(self):
 
-		for i in range(0, c.populationSize):
+		self.Evaluate(self.parent)
 
-			self.parent[i].Evaluate("GUI")
+		for currentGeneration in range(1, c.numberOfGenerations):
 
-#		for currentGeneration in range(1, c.numberOfGenerations):
-
-#			self.Evolve_For_One_Generation()
+			self.Evolve_For_One_Generation()
 
 	def Evolve_For_One_Generation(self):
 
@@ -33,20 +41,31 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.Mutate()
 
-		self.child.Evaluate("DIRECT")
+		self.Evaluate(self.children)
 
-		self.Select()
+		exit()
 
-		self.Print()
+		#self.Select()
 
+		#self.Print()
 
 	def Spawn(self):
 
-		self.child = copy.deepcopy(self.parent)
+		self.children = {}
+
+		for i in range(0, c.populationSize):
+
+			self.children[i] = copy.deepcopy(self.parent[i])
+
+			self.children[i].Set_ID(self.nextAvailableID)
+
+			self.nextAvailableID += 1.0
 
 	def Mutate(self):
 
-		self.child.Mutate()
+		for i in range(0, c.populationSize):
+
+			self.children[i].Mutate()
 
 	def Select(self):
 
@@ -59,5 +78,18 @@ class PARALLEL_HILL_CLIMBER:
 		print(self.parent.fitness, self.child.fitness)
 
 	def Show_Best(self):
+
 		pass
-#		os.system("python3 simulate.py GUI")
+		os.system("python3 simulate.py GUI")
+
+	def Evaluate(self, solutions):
+
+		for i in range(0, c.populationSize):
+
+			solutions[i].Start_Simulation("GUI")
+
+		for i in range(0, c.populationSize):
+
+			solutions[i].Wait_For_Simulation_To_End()
+
+
