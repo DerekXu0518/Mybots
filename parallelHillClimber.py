@@ -9,13 +9,8 @@ class PARALLEL_HILL_CLIMBER:
 
 	def __init__(self):
 
-		#for b in glob.glob("brain*.nndf"):
-
-		#	os.remove(b)
-
-		#for f in glob.glob("Fitness*.txt"):
-
-		#	os.remove(f)
+		os.system("rm brain*.nndf")
+		os.system("rm Fitness*.txt")
 
 		self.parents ={}
 
@@ -43,11 +38,9 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.Evaluate(self.children)
 
-		exit()
+		self.Print()
 
-		#self.Select()
-
-		#self.Print()
+		self.Select()
 
 	def Spawn(self):
 
@@ -69,18 +62,39 @@ class PARALLEL_HILL_CLIMBER:
 
 	def Select(self):
 
-		if self.parents.fitness > self.children.fitness:
+		for parent_key in self.parents.keys():
 
-			self.parents = self.child
+			if self.parents[parent_key].fitness > self.children[parent_key].fitness:
+
+				self.parents[parent_key] = self.children[parent_key]
 
 	def Print(self):
 
-		print(self.parents.fitness, self.children.fitness)
+		for parent_key in self.parents.keys():
+
+			print("")
+
+			print("parent : ", self.parents[parent_key].fitness, "child: ", self.children[parent_key].fitness)
+
+			print("")
 
 	def Show_Best(self):
 
-		pass
-		os.system("python3 simulate.py GUI")
+		Best_Parent = None
+
+		Best_Parent_Fitness = 99999
+
+		for parent_key in self.parents.keys():
+
+			if self.parents[parent_key].fitness < Best_Parent_Fitness:
+
+				Best_Parent_Fitness = self.parents[parent_key].fitness
+
+				Best_Parent = self.parents[parent_key]
+
+		print("This is best fitness: "+str(Best_Parent_Fitness))
+
+		Best_Parent.Start_Simulation("GUI")
 
 	def Evaluate(self, solutions):
 

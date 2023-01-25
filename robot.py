@@ -46,8 +46,8 @@ class ROBOT:
         stateOfLinkZero=p.getLinkState(self.robotId, 0)
         positionOfLinkZero=stateOfLinkZero[0]
         xCoordinateOfLinkZero=positionOfLinkZero[0]
-        f=open("tmp"+self.solutionID+".txt", 'w')
-        rewrite = "mv " + "tmp"+self.solutionID+".txt" + " Fitness" + self.solutionID+".txt"
+        f=open("temp"+self.solutionID+".txt", 'w')
+        rewrite = "mv temp"+str(self.solutionID)+".txt Fitness" + str(self.solutionID)+".txt"
         os.system(rewrite)
         f.write(str(xCoordinateOfLinkZero))
         f.close()

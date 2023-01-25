@@ -2,9 +2,7 @@ import numpy
 import os
 import pyrosim.pyrosim as pyrosim
 import random
-import constants as c
 import time
-
 
 
 class SOLUTION:
@@ -29,17 +27,15 @@ class SOLUTION:
 
 	def Wait_For_Simulation_To_End(self):
 
-		print(self.myID)
+		while not os.path.exists("Fitness" + str(self.myID) + ".txt"):
+
+			time.sleep(0.2)
 
 		f = open("Fitness" + str(self.myID) + ".txt", 'r')
 
-		while not os.path.exists("Fitness" + str(self.myID) + ".txt"):
-
-			time.sleep(0.01)
-
 		self.fitness = float(f.read())
 
-		print(self.fitness)
+		#print(self.fitness)
 
 		f.close()
 
@@ -71,33 +67,31 @@ class SOLUTION:
 
 	def Generate_Brain(self):
 
-		for i in range(0, c.populationSize):
+		pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
-			pyrosim.Start_NeuralNetwork("brain"+str(i)+".nndf")
+		pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
 
-			pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
+		pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
 
-			pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
+		pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
 
-			pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+		pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
 
-			pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
+		pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
-			pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+		for currentRow in range(3):
 
-			for currentRow in range(3):
+			for currentColumn in range(2):
 
-				for currentColumn in range(2):
+				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=random.uniform(-1,1))
 
-					pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=random.uniform(-1,1))
-
-			pyrosim.End()
+		pyrosim.End()
 
 	def Mutate(self):
 
-		randomRow = random.randint(0,2)
+		randomRow = random.randint(0,len(self.weights) -1)
 
-		randomColumn = random.randint(0,1)
+		randomColumn = random.randint(0,len(self.weights[0]) -1)
 
 		self.weights[randomRow, randomColumn] = random.random()*2-1
 
