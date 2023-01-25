@@ -17,15 +17,19 @@ class SOLUTION:
 
 	def Start_Simulation(self, directOrGUI):
 
-		self.Create_World()
+		if self.myID == 0:
 
-		self.Generate_Body()
+			self.Create_World()
+
+			self.Generate_Body()
 
 		self.Generate_Brain()
 
 		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" &")
 
 	def Wait_For_Simulation_To_End(self):
+
+		print(self.myID)
 
 		f = open("Fitness" + str(self.myID) + ".txt", 'r')
 
