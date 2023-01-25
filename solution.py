@@ -83,7 +83,7 @@ class SOLUTION:
 
 			for currentColumn in range(2):
 
-				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=random.uniform(-1,1))
+				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+3, weight=self.weights[currentRow][currentColumn])
 
 		pyrosim.End()
 
