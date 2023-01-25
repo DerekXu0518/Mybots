@@ -40,10 +40,13 @@ class HILL_CLIMBER:
 		self.child.Mutate()
 
 	def Select(self):
+	## Donna's addition
+	#	for parent_key in self.parent.keys():
+	#		if self.children[parent_key].fitness < self.parent[parent_key].fitness:
+	#			self.parent[parent_key] = self.children[parent_key]
+		 if self.parent.fitness > self.child.fitness:
 
-		if self.parent.fitness > self.child.fitness:
-
-			self.parent = self.child
+			 	self.parent = self.child
 
 	def Print(self):
 
