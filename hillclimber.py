@@ -54,4 +54,4 @@ class HILL_CLIMBER:
 
 	def Show_Best(self):
 
-		os.system("python3 simulate.py GUI")
+		self.parent.Evaluate("GUI")
