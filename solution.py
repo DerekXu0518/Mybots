@@ -24,7 +24,7 @@ class SOLUTION:
 
 		self.Generate_Brain()
 
-		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" 2&>1 &")
+		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" &")
 
 	def Wait_For_Simulation_To_End(self):
 
@@ -58,7 +58,7 @@ class SOLUTION:
 
 		# Frist pair
 
-		pyrosim.Send_Joint(name="Torso_LeftLeg1", parent="Torso", child="leftLeg1", type="revolute", position=[-0.6, -0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_LeftLeg1", parent="Torso", child="LeftLeg1", type="revolute", position=[-0.6, -0.5, 3], jointAxis="0 0 1")
 
 		pyrosim.Send_Cube(name="LeftLeg1", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])
 
@@ -70,27 +70,27 @@ class SOLUTION:
 
 		pyrosim.Send_Cube(name="LeftLowerLeg1", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
-		pyrosim.Send_Joint(name="RightLeg1_RightLowerLeg1", parent="Leg", child="FrontLowerLeg", type="revolute", position=[0, 1, 0], jointAxis="0 1 0")
+		pyrosim.Send_Joint(name="RightLeg1_RightLowerLeg1", parent="RightLeg1", child="RightLowerLeg1", type="revolute", position=[0, 1, 0], jointAxis="0 1 0")
 
 		pyrosim.Send_Cube(name="RightLowerLeg1", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
 		# Second pair
 
-		#pyrosim.Send_Joint(name="Torso_LeftLeg2", parent="Torso", child="LeftLeg2", type="revolute", position=[0, -0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_LeftLeg2", parent="Torso", child="LeftLeg2", type="revolute", position=[0, -0.5, 3], jointAxis="0 0 1")
 
-		#pyrosim.Send_Cube(name="LeftLeg2", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])
+		pyrosim.Send_Cube(name="LeftLeg2", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])
 
-		#pyrosim.Send_Joint(name="Torso_RightLeg2", parent="Torso", child="RightLeg2", type="revolute", position=[0, 0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_RightLeg2", parent="Torso", child="RightLeg2", type="revolute", position=[0, 0.5, 3], jointAxis="0 0 1")
 
-		#pyrosim.Send_Cube(name="RightLeg2", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
+		pyrosim.Send_Cube(name="RightLeg2", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
 
-		#pyrosim.Send_Joint(name="LeftLeg2_LeftLowerLeg2", parent="LeftLeg2", child="LeftLowerLeg2", type="revolute", position=[0, -1, 0], jointAxis="0 1 0")
+		pyrosim.Send_Joint(name="LeftLeg2_LeftLowerLeg2", parent="LeftLeg2", child="LeftLowerLeg2", type="revolute", position=[0, -1, 0], jointAxis="0 1 0")
 
-		#pyrosim.Send_Cube(name="LeftLowerLeg2", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
+		pyrosim.Send_Cube(name="LeftLowerLeg2", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
-		#pyrosim.Send_Joint(name="RightLeg2_RightLowerLeg2", parent="RightLeg2", child="RightLowerLeg2", type="revolute", position=[0, 1, 0], jointAxis="0 1 0")
+		pyrosim.Send_Joint(name="RightLeg2_RightLowerLeg2", parent="RightLeg2", child="RightLowerLeg2", type="revolute", position=[0, 1, 0], jointAxis="0 1 0")
 
-		#pyrosim.Send_Cube(name="RightLowerLeg2", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
+		pyrosim.Send_Cube(name="RightLowerLeg2", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
 		#Third pair
 
@@ -159,6 +159,8 @@ class SOLUTION:
 				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons, weight=self.weights[currentRow][currentColumn])
 
 		pyrosim.End()
+
+		
 
 	def Mutate(self):
 
