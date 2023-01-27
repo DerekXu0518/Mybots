@@ -79,7 +79,7 @@
             </geometry>
         </collision>
     </link>
-    <joint name="LeftLeg1_leftLowerLeg1" type="revolute">
+    <joint name="LeftLeg1_LeftLowerLeg1" type="revolute">
        <parent link="LeftLeg1"/>
        <child  link="LeftLowerLeg1"/>
        <origin rpy="0 0 0" xyz="0 -1 0" />

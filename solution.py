@@ -66,7 +66,7 @@ class SOLUTION:
 
 		pyrosim.Send_Cube(name="RightLeg1", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
 
-		pyrosim.Send_Joint(name="LeftLeg1_leftLowerLeg1", parent="LeftLeg1", child="LeftLowerLeg1", type="revolute", position=[0, -1, 0], jointAxis="0 1 0")
+		pyrosim.Send_Joint(name="LeftLeg1_LeftLowerLeg1", parent="LeftLeg1", child="LeftLowerLeg1", type="revolute", position=[0, -1, 0], jointAxis="0 1 0")
 
 		pyrosim.Send_Cube(name="LeftLowerLeg1", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
@@ -159,8 +159,6 @@ class SOLUTION:
 				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons, weight=self.weights[currentRow][currentColumn])
 
 		pyrosim.End()
-
-		
 
 	def Mutate(self):
 
