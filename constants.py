@@ -9,12 +9,12 @@ frontLegFrequency = 10.5
 frontLegPhaseOffset = 0.0
 
 
-numberOfGenerations = 10
+numberOfGenerations = 1
 
-populationSize = 10
+populationSize = 1
 
-numSensorNeurons = 4
+numSensorNeurons = 6
 
-numMotorNeurons = 8
+numMotorNeurons = 12
 
-motorJointRange = 0.2
+motorJointRange = 0.25

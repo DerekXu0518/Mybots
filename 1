@@ -1,20 +1,15 @@
 pybullet build time: Jan  6 2023 10:34:37
-Version = 4.1 INTEL-20.2.44
-Vendor = Intel Inc.
-Renderer = Intel(R) Iris(TM) Plus Graphics 645
-b3Printf: Selected demo: Physics Server
-startThreads creating 1 threads.
-starting thread 0
-started thread 0 
-MotionThreadFunc thread started
-b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
-
-b3Printf: expected a world element, continuing without it.
-numActiveThreads = 0
-stopping threads
-Thread with taskId 0 exiting
-destroy semaphore
-Thread TERMINATED
-semaphore destroyed
-destroy main semaphore
-main semaphore destroyed
+b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+expected a world element, continuing without it.b3Error[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,121]:
+Cannot find child link for joint b3Error[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,121]:
+Torso_LeftLeg1Traceback (most recent call last):
+  File "/Users/derekxu/Documents/GitHub/Mybots/simulate.py", line 7, in <module>
+    simulation = SIMULATION(directOrGUI, solutionID)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/derekxu/Documents/GitHub/Mybots/simulation.py", line 20, in __init__
+    self.robot = ROBOT(self.solutionID)
+                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/derekxu/Documents/GitHub/Mybots/robot.py", line 15, in __init__
+    self.robotId = p.loadURDF("body.urdf")
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+pybullet.error: Cannot load URDF file.
