@@ -24,13 +24,13 @@ class SOLUTION:
 
 		self.Generate_Brain()
 
-		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" &")
+		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" 2&>1 &")
 
 	def Wait_For_Simulation_To_End(self):
 
 		while not os.path.exists("Fitness" + str(self.myID) + ".txt"):
 
-			time.sleep(0.2)
+			time.sleep(0.1)
 
 		f = open("Fitness" + str(self.myID) + ".txt", 'r')
 
@@ -46,7 +46,7 @@ class SOLUTION:
 
 		pyrosim.Start_SDF("world.sdf")
 
-		pyrosim.Send_Cube(name="Box", pos=[-5, 0, 1], size=[20, 3.6, 2])
+		pyrosim.Send_Cube(name="Box", pos=[-5, 0, 1], size=[20, 4, 2])
 
 		pyrosim.End()
 
@@ -58,11 +58,11 @@ class SOLUTION:
 
 		# Frist pair
 
-		pyrosim.Send_Joint(name="Torso_LeftLeg1", parent="Torso", child="LeftLeg1", type="revolute", position=[-0.6, -0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_LeftLeg1", parent="Torso", child="LeftLeg1", type="revolute", position=[-1, -0.5, 3], jointAxis="0 0 1")
 
 		pyrosim.Send_Cube(name="LeftLeg1", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])
 
-		pyrosim.Send_Joint(name="Torso_RightLeg1", parent="Torso", child="RightLeg1", type="revolute", position=[-0.6, 0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_RightLeg1", parent="Torso", child="RightLeg1", type="revolute", position=[-1, 0.5, 3], jointAxis="0 0 1")
 
 		pyrosim.Send_Cube(name="RightLeg1", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
 
@@ -76,29 +76,29 @@ class SOLUTION:
 
 		# Second pair
 
-		pyrosim.Send_Joint(name="Torso_LeftLeg2", parent="Torso", child="LeftLeg2", type="revolute", position=[0, -0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_LeftLeg2", parent="Torso", child="LeftLeg2", type="revolute", position=[0, -0.5, 3], jointAxis="1 0 0 ")
 
 		pyrosim.Send_Cube(name="LeftLeg2", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])
 
-		pyrosim.Send_Joint(name="Torso_RightLeg2", parent="Torso", child="RightLeg2", type="revolute", position=[0, 0.5, 3], jointAxis="0 0 1")
+		pyrosim.Send_Joint(name="Torso_RightLeg2", parent="Torso", child="RightLeg2", type="revolute", position=[0, 0.5, 3], jointAxis="1 0 0")
 
 		pyrosim.Send_Cube(name="RightLeg2", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
 
-		pyrosim.Send_Joint(name="LeftLeg2_LeftLowerLeg2", parent="LeftLeg2", child="LeftLowerLeg2", type="revolute", position=[0, -1, 0], jointAxis="0 1 0")
+		pyrosim.Send_Joint(name="LeftLeg2_LeftLowerLeg2", parent="LeftLeg2", child="LeftLowerLeg2", type="revolute", position=[0, -1, 0], jointAxis="1 0 0")
 
 		pyrosim.Send_Cube(name="LeftLowerLeg2", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
-		pyrosim.Send_Joint(name="RightLeg2_RightLowerLeg2", parent="RightLeg2", child="RightLowerLeg2", type="revolute", position=[0, 1, 0], jointAxis="0 1 0")
+		pyrosim.Send_Joint(name="RightLeg2_RightLowerLeg2", parent="RightLeg2", child="RightLowerLeg2", type="revolute", position=[0, 1, 0], jointAxis="1 0 0")
 
 		pyrosim.Send_Cube(name="RightLowerLeg2", pos=[0, 0, -0.5], size=[0.2, 0.2, 1])
 
 		#Third pair
 
-		pyrosim.Send_Joint(name="Torso_LeftLeg3", parent="Torso", child="LeftLeg3", type="revolute", position=[0.6, -0.5, 3], jointAxis="1 0 0")
+		pyrosim.Send_Joint(name="Torso_LeftLeg3", parent="Torso", child="LeftLeg3", type="revolute", position=[1, -0.5, 3], jointAxis="0 0 1")
 
 		pyrosim.Send_Cube(name="LeftLeg3", pos=[0, -0.5, 0], size=[0.2, 1, 0.2])
 
-		pyrosim.Send_Joint(name="Torso_RightLeg3", parent="Torso", child="RightLeg3", type="revolute", position=[0.6, 0.5, 3], jointAxis="1 0 0")
+		pyrosim.Send_Joint(name="Torso_RightLeg3", parent="Torso", child="RightLeg3", type="revolute", position=[1, 0.5, 3], jointAxis="0 0 1")
 
 		pyrosim.Send_Cube(name="RightLeg3", pos=[0, 0.5, 0], size=[0.2, 1, 0.2])
 
