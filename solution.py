@@ -36,8 +36,6 @@ class SOLUTION:
 
 		self.fitness = float(f.read())
 
-		#print(self.fitness)
-
 		f.close()
 
 		os.system("rm Fitness" + str(self.myID) + ".txt")
@@ -46,7 +44,7 @@ class SOLUTION:
 
 		pyrosim.Start_SDF("world.sdf")
 
-		pyrosim.Send_Cube(name="Box", pos=[-5, 0, 0.5], size=[20, 4, 1])
+		pyrosim.Send_Cube(name="Box", pos=[-5, 0, 0.5], size=[20, 3.5, 1])
 
 		pyrosim.End()
 

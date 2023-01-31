@@ -11,7 +11,7 @@ frontLegPhaseOffset = 0.0
 
 numberOfGenerations = 10
 
-populationSize = 20
+populationSize = 10
 
 numSensorNeurons = 4
 
