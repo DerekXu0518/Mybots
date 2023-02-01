@@ -34,7 +34,11 @@ class SOLUTION:
 
 		f = open("Fitness" + str(self.myID) + ".txt", 'r')
 
-		self.fitness = float(f.read())
+		self.overallFitness = f.readlines()
+
+		self.xfitness = float(self.overallFitness[0])
+
+		self.yfitness = float(self.overallFitness[1])
 
 		f.close()
 

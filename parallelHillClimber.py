@@ -68,7 +68,7 @@ class PARALLEL_HILL_CLIMBER:
 
 		for parent_key in self.parents.keys():
 
-			if self.parents[parent_key].fitness > self.children[parent_key].fitness:
+			if self.parents[parent_key].xfitness > self.children[parent_key].xfitness and abs(self.parents[parent_key].yfitness) < abs(self.parents[parent_key].yfitness):
 
 				self.parents[parent_key] = self.children[parent_key]
 
@@ -78,7 +78,9 @@ class PARALLEL_HILL_CLIMBER:
 
 			print("")
 
-			print("parent : ", self.parents[parent_key].fitness, "child: ", self.children[parent_key].fitness)
+			print("parent x: ", self.parents[parent_key].xfitness, "child x: ", self.children[parent_key].xfitness)
+
+			print("parent y: ", self.parents[parent_key].yfitness, "child y: ", self.children[parent_key].yfitness)
 
 			print("")
 
@@ -90,9 +92,9 @@ class PARALLEL_HILL_CLIMBER:
 
 		for parent_key in self.parents.keys():
 
-			if self.parents[parent_key].fitness < Best_Parent_Fitness:
+			if self.parents[parent_key].xfitness < Best_Parent_Fitness:
 
-				Best_Parent_Fitness = self.parents[parent_key].fitness
+				Best_Parent_Fitness = self.parents[parent_key].xfitness
 
 				Best_Parent = self.parents[parent_key]
 

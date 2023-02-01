@@ -47,9 +47,11 @@ class ROBOT:
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
+        yPosition = basePosition[1]
         f=open("temp"+self.solutionID+".txt", 'w')
         rewrite = "mv temp"+str(self.solutionID)+".txt Fitness" + str(self.solutionID)+".txt"
         os.system(rewrite)
-        f.write(str(xPosition))
+        #f.write(str(xPosition))
+        f.write(str(xPosition) + "\n" + str(yPosition) + "\n")
         f.close()
         #print(xCoordinateOfLinkZero)
