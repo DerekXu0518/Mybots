@@ -3,7 +3,7 @@ from pyrosim.commonFunctions import Save_Whitespace
 
 class INERTIA_SDF: 
 
-    def __init__(self):
+    def __init__(self,mass):
 
         self.depth = 4 
 

@@ -48,7 +48,7 @@ class SOLUTION:
 
 		pyrosim.Start_SDF("world.sdf")
 
-		pyrosim.Send_Cube(name="Box", pos=[-5, 0, 0.5], size=[20, 3.5, 1])
+		pyrosim.Send_Cube(name="Box", pos=[-5, 0, 0.5], size=[20, 3.5, 1],mass=100.0)
 
 		pyrosim.End()
 
