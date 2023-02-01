@@ -100,6 +100,8 @@ class PARALLEL_HILL_CLIMBER:
 
 		print("This is best fitness: "+str(Best_Parent_Fitness))
 
+		print("This is the best weights:"+str(Best_Parent.weights))
+
 		Best_Parent.Start_Simulation("GUI")
 
 	def Evaluate(self, solutions):
