@@ -48,6 +48,8 @@ class SOLUTION:
 
 		pyrosim.Start_SDF("world.sdf")
 
+		pyrosim.Send_Sphere(name="BowlingBall", pos=[-3, +3, 0.5], size=[0.5])
+
 		pyrosim.Send_Cube(name="Stair1", pos=[0, 0, 1], size=[2, 3.5, 2],mass=100.0)
 
 		pyrosim.Send_Cube(name="Stair2", pos=[-1.5, 0, 0.9], size=[1, 3.5, 1.8], mass=100.0)

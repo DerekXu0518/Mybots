@@ -86,7 +86,7 @@ class PARALLEL_HILL_CLIMBER:
 
 	def Show_Best(self):
 
-		Best_Parent = None
+		self.Best_Parent = None
 
 		Best_Parent_Fitness = 99999
 
@@ -96,13 +96,13 @@ class PARALLEL_HILL_CLIMBER:
 
 				Best_Parent_Fitness = self.parents[parent_key].xfitness
 
-				Best_Parent = self.parents[parent_key]
+				self.Best_Parent = self.parents[parent_key]
 
 		print("This is best fitness: "+str(Best_Parent_Fitness))
 
-		print("This is the best weights:"+str(Best_Parent.weights))
+		print("This is the best weights:"+str(self.Best_Parent.weights))
 
-		Best_Parent.Start_Simulation("GUI")
+		self.Best_Parent.Start_Simulation("GUI")
 
 	def Evaluate(self, solutions):
 
