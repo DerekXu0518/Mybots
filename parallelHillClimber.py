@@ -24,9 +24,9 @@ class PARALLEL_HILL_CLIMBER:
 
 	def Evolve(self):
 
-		#self.parents[0].Start_Simulation("GUI")
+		self.parents[0].Start_Simulation("GUI")
 
-		#self.parents[0].Wait_For_Simulation_To_End()
+		self.parents[0].Wait_For_Simulation_To_End()
 
 		self.Evaluate(self.parents)
 
@@ -88,19 +88,23 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.Best_Parent = None
 
-		Best_Parent_Fitness = 99999
+		Best_Parent_xFitness = 99999
+
+		Best_Parent_yFitness = 99999
 
 		for parent_key in self.parents.keys():
 
-			if self.parents[parent_key].xfitness < Best_Parent_Fitness:
+			if self.parents[parent_key].xfitness < Best_Parent_xFitness:
 
-				Best_Parent_Fitness = self.parents[parent_key].xfitness
+				Best_Parent_xFitness = self.parents[parent_key].xfitness
+
+				Best_Parent_yFitness = self.parents[parent_key].yfitness
 
 				self.Best_Parent = self.parents[parent_key]
 
-		print("This is best fitness: "+str(Best_Parent_Fitness))
+		print("This is best xFitness and yFitness: "+str(Best_Parent_xFitness)+" and "+str(Best_Parent_yFitness))
 
-		print("This is the best weights:"+str(self.Best_Parent.weights))
+		#print("This is the best weights:"+str(self.Best_Parent.weights))
 
 		self.Best_Parent.Start_Simulation("GUI")
 
