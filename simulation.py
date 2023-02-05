@@ -21,13 +21,13 @@ class SIMULATION:
 
 
     def Run(self):
-        for t in range(0, 1500):
+        for t in range(0, 1000):
             p.stepSimulation()
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act()
-            if self.directOrGUI == 'GUI':
-                time.sleep(1 / 10000)
+            #if self.directOrGUI == 'GUI':
+                #time.sleep(1 / 1000000)
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
