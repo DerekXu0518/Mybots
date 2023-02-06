@@ -1,4 +1,6 @@
 import numpy
+import random
+
 
 # define variables
 Amplitude = numpy.pi/4
@@ -13,8 +15,8 @@ numberOfGenerations = 1
 
 populationSize = 1
 
-numSensorNeurons = 5
+numSensorNeurons = 1
 
-numMotorNeurons = 10
+numMotorNeurons = 1
 
-motorJointRange = 0.2
+motorJointRange = 0.5
