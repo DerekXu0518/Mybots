@@ -48,17 +48,17 @@ class SOLUTION:
 
 		pyrosim.Start_SDF("world.sdf")
 
-		pyrosim.Send_Sphere(name="BowlingBall", pos=[-3, +3, 0.5], size=[0.5])
+		#pyrosim.Send_Sphere(name="BowlingBall", pos=[-3, +3, 0.5], size=[0.5])
 
-		pyrosim.Send_Cube(name="Stair1", pos=[1, 0, 1], size=[2, 3.5, 2],mass=100.0)
+		#pyrosim.Send_Cube(name="Stair1", pos=[1, 0, 1], size=[2, 3.5, 2],mass=100.0)
 
-		pyrosim.Send_Cube(name="Stair2", pos=[-0.5, 0, 0.9], size=[1, 3.5, 1.8], mass=100.0)
+		#pyrosim.Send_Cube(name="Stair2", pos=[-0.5, 0, 0.9], size=[1, 3.5, 1.8], mass=100.0)
 
-		pyrosim.Send_Cube(name="Stair3", pos=[-1.5, 0, 0.8], size=[1, 3.5, 1.6], mass=100.0)
+		#pyrosim.Send_Cube(name="Stair3", pos=[-1.5, 0, 0.8], size=[1, 3.5, 1.6], mass=100.0)
 
-		pyrosim.Send_Cube(name="Stair4", pos=[-2.5, 0, 0.7], size=[1, 3.5, 1.4], mass=100.0)
+		#pyrosim.Send_Cube(name="Stair4", pos=[-2.5, 0, 0.7], size=[1, 3.5, 1.4], mass=100.0)
 
-		pyrosim.Send_Cube(name="Stair5", pos=[-3.5, 0, 0.6], size=[1, 3.5, 1.2], mass=100.0)
+		#pyrosim.Send_Cube(name="Stair5", pos=[-3.5, 0, 0.6], size=[1, 3.5, 1.2], mass=100.0)
 
 		pyrosim.End()
 
@@ -68,7 +68,7 @@ class SOLUTION:
 
 		#body
 
-		pyrosim.Send_Cube(name="Torso1", pos=[0, 0, 3], size=[1, 1, 1],mass=3)
+		pyrosim.Send_Cube(name="Torso1", pos=[0, 0, 3], size=[1, 1, 1],mass=3,materialName="Green",colorRgba="0 1.28 0 1.0")
 
 		pyrosim.Send_Joint(name="Torso1_Torso2", parent="Torso1", child="Torso2", type="revolute",position=[0.5, 0, 3], jointAxis="0 1 0")
 
@@ -82,7 +82,7 @@ class SOLUTION:
 
 		pyrosim.Send_Joint(name="Torso1_LeftLeg1", parent="Torso1", child="LeftLeg1", type="revolute", position=[-0.2, -0.5, 3], jointAxis="0 0 1")
 
-		pyrosim.Send_Cube(name="LeftLeg1", pos=[0, -0.5, 0], size=[0.2, 1, 0.2],mass=3)
+		pyrosim.Send_Cube(name="LeftLeg1", pos=[0, -0.5, 0], size=[0.2, 1, 0.2],mass=3,)
 
 		pyrosim.Send_Joint(name="Torso1_RightLeg1", parent="Torso1", child="RightLeg1", type="revolute", position=[-0.2, 0.5, 3], jointAxis="0 0 1")
 
