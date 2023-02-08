@@ -1,8 +1,18 @@
-# Mybots
+# 1-D Snake
+This is a project based on r/ludobots MOOC.
 
-I created a four-leg little bug that attempts to walk down stairs smoothly.
+Website: https://www.reddit.com/r/ludobots/
 
-To run the parallel hill climber and see the result, please run search.py.
+Used by CHEM_ENG 395 at Northwestern University
 
-The fitness functions are both in x and y directions. -x direction and the minimal the absolute y value(stay in the center of stairs) are chosen to be the better parent.
-They are located in Select method of parallelHillClimber.py
+## Sensors
+All sensors are randomly generated as 50% probability on each link
+
+## Motors
+Motors are generated on every joint currently.
+
+## Start the simulation
+To run the simulation. run search.py
+
+## Fitness 
+There is no fitness function used currently.

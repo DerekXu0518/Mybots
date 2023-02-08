@@ -12,7 +12,7 @@ class ROBOT:
         self.sensors = {}
         self.motors = {}
         self.solutionID = solutionID
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF("body"+self.solutionID+".urdf")
         self.nn = NEURAL_NETWORK("brain"+self.solutionID+".nndf")
         #os.system("rm brain" + self.solutionID + ".nndf")
         pyrosim.Prepare_To_Simulate(self.robotId)
