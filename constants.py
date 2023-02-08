@@ -19,4 +19,4 @@ numSensorNeurons = 1
 
 numMotorNeurons = 1
 
-motorJointRange = 0.5
+motorJointRange = 1

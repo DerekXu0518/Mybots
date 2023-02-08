@@ -10,9 +10,17 @@ class SOLUTION:
 
 	def __init__(self, nextAvailableID):
 
-		self.weights = numpy.random.rand(c.numSensorNeurons, c.numMotorNeurons) * 2 - 1
+		self.lastI = random.randint(2,10)
+
+		self.numSensor = random.randint(0,self.lastI+1)
+
+		self.weights = numpy.random.rand(self.numSensor, c.numMotorNeurons) * 2 - 1
 
 		self.myID = nextAvailableID
+
+		self.sensors ={}
+
+		self.neuronId = 0
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -48,37 +56,13 @@ class SOLUTION:
 
 		pyrosim.Start_SDF("world.sdf")
 
-		#pyrosim.Send_Sphere(name="BowlingBall", pos=[-3, +3, 0.5], size=[0.5])
-
-		#pyrosim.Send_Cube(name="Stair1", pos=[1, 0, 1], size=[2, 3.5, 2],mass=100.0)
-
-		#pyrosim.Send_Cube(name="Stair2", pos=[-0.5, 0, 0.9], size=[1, 3.5, 1.8], mass=100.0)
-
-		#pyrosim.Send_Cube(name="Stair3", pos=[-1.5, 0, 0.8], size=[1, 3.5, 1.6], mass=100.0)
-
-		#pyrosim.Send_Cube(name="Stair4", pos=[-2.5, 0, 0.7], size=[1, 3.5, 1.4], mass=100.0)
-
-		#pyrosim.Send_Cube(name="Stair5", pos=[-3.5, 0, 0.6], size=[1, 3.5, 1.2], mass=100.0)
-
 		pyrosim.End()
 
 	def Generate_Body(self):
 
 		pyrosim.Start_URDF("body.urdf")
 
-		# First Link
-
-		firstX = random.uniform(0, 1)
-
-		firstY = random.uniform(0, 1)
-
-		firstZ = random.uniform(0, 1)
-
-		pyrosim.Send_Cube(name="Torso1", pos=[0, 0, 3], size=[firstX,firstY,firstZ], materialName="Green", colorRgba="0 1.28 0 1.0")
-
-		pyrosim.Send_Joint(name="Torso1_Torso2", parent="Torso1", child="Torso2", type="revolute",position=[firstX / 2, 0, 3], jointAxis="0 1 0")
-
-		for i in range(2,random.randint(3,10)):
+		for i in range(1,self.lastI+1):
 
 			randomX = random.uniform(0,1)
 
@@ -86,25 +70,61 @@ class SOLUTION:
 
 			randomZ = random.uniform(0,1)
 
-			if  random.choice([0,1]) == 0: # no sensor
+			if i == 1:
 
-				pyrosim.Send_Cube(name="Torso"+str(i), pos=[randomX/2, 0, 0], size=[randomX,randomY,randomZ],materialName="Blue",colorRgba="0 0 2.55 1.0")
+				if random.choice([0,1]) == 1:
 
-			else: # with sensor
+					pyrosim.Send_Cube(name="Torso1", pos=[0, 0, 3], size=[randomX, randomY, randomZ],
+									  materialName="Green",colorRgba="0 1.28 0 1.0")
 
-				pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ],materialName="Green", colorRgba="0 1.28 0 1.0")
+					# generate a neuron
 
-			pyrosim.Send_Joint(name="Torso0"+str(i)+"_Torso"+str(i+1), parent="Torso"+str(i), child="Torso"+str(i+1), type="revolute", position=[randomX, 0, 0], jointAxis="0 1 0")
+					self.sensors[i] = "Torso1"
 
-		# Last Link
+					self.numSensor -=1
 
-		lastX = random.uniform(0, 1)
+				else:
 
-		lastY = random.uniform(0, 1)
+					pyrosim.Send_Cube(name="Torso1", pos=[0, 0, 3], size=[randomX, randomY, randomZ],
+									  materialName="Blue", colorRgba="0 0 2.55 1.0")
 
-		lastZ = random.uniform(0, 1)
+				pyrosim.Send_Joint(name="Torso1_Torso2", parent="Torso1", child="Torso2", type="revolute",
+									   position=[randomX / 2, 0, 3], jointAxis="0 1 0")
 
-		pyrosim.Send_Cube(name="Torso" + str(i+1), pos=[lastX/2, 0, 0], size=[lastX,lastY,lastZ])
+			elif i == self.lastI:
+
+				if random.choice([0,1]) == 1 and self.numSensor >0:
+
+					pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ],
+									  materialName="Green",colorRgba="0 1.28 0 1.0")
+
+					# generate a neuron
+
+					self.sensors[i] = "Torso"+str(i)
+
+				else:
+
+					pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ],
+									  materialName="Blue",colorRgba="0 0 2.55 1.0")
+
+			else:
+
+				if  random.choice([0,1]) == 1 and self.numSensor >0:
+
+					pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ],materialName="Green", colorRgba="0 1.28 0 1.0")
+
+					# generate a neuron
+
+					self.sensors[i] = "Torso"+str(i)
+
+					self.numSensor -=1
+
+				else:
+
+					pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ],
+									  materialName="Blue", colorRgba="0 0 2.55 1.0")
+
+				pyrosim.Send_Joint(name="Torso"+str(i)+"_Torso"+str(i+1), parent="Torso"+str(i), child="Torso"+str(i+1), type="revolute", position=[randomX, 0, 0], jointAxis="0 1 0")
 
 		pyrosim.End()
 
@@ -112,15 +132,19 @@ class SOLUTION:
 
 		pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
-		pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso1")
+		for i in self.sensors:
 
-		pyrosim.Send_Motor_Neuron(name=1, jointName="Torso1_Torso2")
+			pyrosim.Send_Sensor_Neuron(name=self.neuronId, linkName=self.sensors[i])
 
-		for currentRow in range(c.numSensorNeurons):
+			self.neuronId +=1
+
+		pyrosim.Send_Motor_Neuron(name=self.neuronId, jointName="Torso1_Torso2")
+
+		for currentRow in range(self.numSensor):
 
 			for currentColumn in range(c.numMotorNeurons):
 
-				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+c.numSensorNeurons, weight=self.weights[currentRow][currentColumn])
+				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensor, weight=self.weights[currentRow][currentColumn])
 
 		pyrosim.End()
 
