@@ -12,13 +12,13 @@ class SOLUTION:
 
 		self.myID = nextAvailableID
 
-		self.sensors = {}
+		self.sensors = []
 
-		self.motors = {}
+		self.motors = []
 
 		self.neuronId = 0
 
-		self.numSensor = 0
+		self.numSensorNeuron = 0
 
 		#linklist
 		self.linkNameList = []
@@ -52,7 +52,9 @@ class SOLUTION:
 
 		self.Generate_Brain()
 
-		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" 2&>1 &")
+		#2 & > 1
+
+		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" &")
 
 	def Wait_For_Simulation_To_End(self):
 
@@ -82,19 +84,19 @@ class SOLUTION:
 
 		pyrosim.Start_URDF("body"+str(self.myID)+".urdf")
 
-		self.Generate_First_link_And_Joint()
-
 		self.Generate_Body_List()
 
-		self.Generate_Body_From_List()
+		print(self.linkNameList)
+
+		self.Generate_Body_From_Body_List()
 
 		pyrosim.End()
 
 	def Generate_Body_List(self):
 
-		self.length = random.randint(1,10)
+		self.length = random.randint(4,10)
 
-		for i in range(1,self.length+1):
+		for i in range(0,self.length+1):
 
 			self.Set_Color()
 
@@ -102,9 +104,33 @@ class SOLUTION:
 
 			self.Random_Joint_Axis()
 
-			self.Decide_Link_Position()
+			if i == 0:
 
-			if i==self.length:
+				self.pick_axis = "x axis"
+
+				self.linkNameList.append("Torso" + str(i))
+
+				self.linkPositionList.append([0,0,1])
+
+				self.materialList.append(self.material)
+
+				self.colorList.append(self.color)
+
+				self.sizeList.append([self.randomX, self.randomY, self.randomZ])
+
+				self.jointAxisList.append(self.jointAxis)
+
+				self.jointNameList.append("Torso" + str(i) + "_Torso" + str(i + 1))
+
+				self.Random_Joint_Position(i)
+
+				self.jointPositionList.append([self.randomX/2,0,1])
+
+				self.jointAxisList.append(self.jointAxis)
+
+			elif i==self.length:
+
+				self.Decide_Link_Position()
 
 				self.linkNameList.append("Torso" + str(i))
 
@@ -117,6 +143,8 @@ class SOLUTION:
 				self.sizeList.append([self.randomX, self.randomY, self.randomZ])
 
 			else:
+
+				self.Decide_Link_Position()
 
 				self.linkNameList.append("Torso"+str(i))
 
@@ -138,99 +166,53 @@ class SOLUTION:
 
 				self.jointAxisList.append(self.jointAxis)
 
-	def Generate_First_link_And_Joint(self):
+	def Generate_Body_From_Body_List(self):
 
-		self.Set_Color()
+		for i in range(1,len(self.linkNameList)):
 
-		self.Random_Size()
-
-		self.Random_Joint_Axis()
-
-		pyrosim.Send_Cube(name="Torso0", pos=[0,0,1], size=[self.randomX, self.randomY, self.randomZ],
-							  materialName=self.material,colorRgba=self.color)
-
-		self.linkNameList.append("Torso0")
-
-		self.linkPositionList.append([0,0,1])
-
-		self.sizeList.append([self.randomX, self.randomY, self.randomZ])
-
-		self.materialList.append(self.material)
-
-		self.colorList.append(self.color)
-
-		pyrosim.Send_Joint(name="Torso0_Torso1", parent="Torso0", child="Torso1", type="revolute",
-							   position=[self.randomX/2,0,1], jointAxis=self.jointAxis)
-
-
-		self.jointNameList.append("Torso0_Torso1")
-
-		self.jointPositionList.append([self.randomX/2,0,1])
-
-		self.pick_axis = "x axis"
-
-		self.jointAxisList.append(self.jointAxis)
-
-		if self.material == 'Green':# generate a neuron
-
-			self.sensors[0] = "Torso0"
-
-		self.motors[0] = "Torso0_Torso1"
-
-	def Generate_Body_From_List(self):
-
-			for i in range(1,len(self.linkNameList)):
-
-				pyrosim.Send_Cube(name=self.linkNameList[i], pos=self.linkPositionList[i], size=self.sizeList[i],
+			pyrosim.Send_Cube(name=self.linkNameList[i], pos=self.linkPositionList[i], size=self.sizeList[i],
 									  materialName=self.materialList[i],colorRgba=self.colorList[i])
 
-				if self.materialList[i] == "Green": # generate a neuron
+			if self.materialList[i] == "Green": # generate a neuron
 
-					self.sensors[i] = self.linkNameList[i]
+				self.sensors.append(self.linkNameList[i])
 
-			for i in range(1,len(self.jointNameList)):
+		for i in range(1,len(self.jointNameList)):
 
-				pyrosim.Send_Joint(name=self.jointNameList[i], parent=self.linkNameList[i], child=self.linkNameList[i+1], type="revolute",
+			pyrosim.Send_Joint(name=self.jointNameList[i], parent=self.linkNameList[i], child=self.linkNameList[i+1], type="revolute",
 								   position=self.jointPositionList[i], jointAxis=self.jointAxisList[i])
 
-				self.motors[i] = self.jointNameList[i]
-
+			self.motors.append(self.jointNameList[i])
 
 	def Generate_Brain(self):
 
-		self.numMotorNeuron = self.length - 1
+		self.numMotorNeuron = len(self.motors)
 
 		pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
-		print(self.sensors)
-
-		for i in self.sensors.keys():
+		for i in range(len(self.sensors)):
 
 			pyrosim.Send_Sensor_Neuron(name=self.neuronId, linkName=self.sensors[i])
 
 			self.neuronId +=1
 
-		for i in self.motors.keys():
+		for i in range(len(self.motors)):
 
 			pyrosim.Send_Motor_Neuron(name=self.neuronId, jointName=self.motors[i])
 
 			self.neuronId +=1
 
-		self.weights = numpy.random.rand(self.numSensor, self.numMotorNeuron) * 2 - 1
+		self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
 
-		for currentRow in range(self.numSensor):
+		for currentRow in range(self.numSensorNeuron):
 
 			for currentColumn in range(self.numMotorNeuron):
 
-				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensor, weight=self.weights[currentRow][currentColumn])
-
-		pyrosim.End()
+				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensorNeuron, weight=self.weights[currentRow][currentColumn])
 
 		self.neuronId = 0
 
-		self.numSensor = 0
-
-		self.sensors = {}
+		pyrosim.End()
 
 	def Mutate(self):
 
@@ -252,7 +234,7 @@ class SOLUTION:
 
 			self.color = "0 1.2 0 1.0"
 
-			self.numSensor += 1
+			self.numSensorNeuron += 1
 
 		else:
 
