@@ -10,12 +10,6 @@ class SOLUTION:
 
 	def __init__(self, nextAvailableID):
 
-		self.lastI = random.randint(2,10)
-
-		self.numMotorNeuron = self.lastI-1
-
-		#self.weights = numpy.random.rand(self.numSensor,self.numMotorNeuron) * 2 - 1
-
 		self.myID = nextAvailableID
 
 		self.sensors = {}
@@ -26,6 +20,28 @@ class SOLUTION:
 
 		self.numSensor = 0
 
+		#linklist
+		self.linkNameList = []
+
+		self.sizeList = []
+
+		self.linkPositionList=[]
+
+		self.materialList = []
+
+		self.colorList = []
+
+		# jointlist
+		self.jointNameList = []
+
+		self.jointPositionList = []
+
+		self.jointAxisList = []
+
+		#random.seed(0)
+
+		#numpy.random.seed(0)
+
 	def Start_Simulation(self, directOrGUI):
 
 		if self.myID == 0:
@@ -33,8 +49,6 @@ class SOLUTION:
 			self.Create_World()
 
 		self.Generate_Body()
-
-		print("This is start of generate brain")
 
 		self.Generate_Brain()
 
@@ -68,68 +82,123 @@ class SOLUTION:
 
 		pyrosim.Start_URDF("body"+str(self.myID)+".urdf")
 
-		for i in range(1,self.lastI+1):
+		self.Generate_First_link_And_Joint()
 
-			if random.random() <0.5:
+		self.Generate_Body_List()
 
-				self.material = "Green"
-
-				self.color = "0 1.2 0 1.0"
-
-				self.numSensor +=1
-
-			else:
-
-				self.material = "Blue"
-
-				self.color = "0 0 2.5 1.0"
-
-			randomX = random.uniform(0,1)
-
-			randomY = random.uniform(0,1)
-
-			randomZ = random.uniform(0,1)
-
-			if i == 1:
-
-				pyrosim.Send_Cube(name="Torso1", pos=[0, 0, 2], size=[randomX, randomY, randomZ],
-									  materialName=self.material,colorRgba=self.color)
-
-				if self.material == 'Green':# generate a neuron
-
-					self.sensors[i] = "Torso1"
-
-				pyrosim.Send_Joint(name="Torso1_Torso2", parent="Torso1", child="Torso2", type="revolute",
-									   position=[randomX / 2, 0, 2], jointAxis="0 1 0")
-
-				self.motors[i] = "Torso1_Torso2"
-
-			elif i == self.lastI:
-
-				pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ],
-									  materialName=self.material,colorRgba=self.color)
-
-				if self.material == "Green": # generate a neuron
-
-					self.sensors[i] = "Torso"+str(i)
-
-			else:
-
-				pyrosim.Send_Cube(name="Torso" + str(i), pos=[randomX / 2, 0, 0], size=[randomX, randomY, randomZ]
-								  ,materialName=self.material, colorRgba=self.color)
-
-				if self.material == "Green":# generate a neuron
-
-					self.sensors[i] = "Torso"+str(i)
-
-				pyrosim.Send_Joint(name="Torso"+str(i)+"_Torso"+str(i+1), parent="Torso"+str(i), child="Torso"+str(i+1), type="revolute",
-								   position=[randomX, 0, 0], jointAxis="0 1 0")
-
-				self.motors[i] = "Torso"+str(i)+"_Torso"+str(i+1)
+		self.Generate_Body_From_List()
 
 		pyrosim.End()
 
+	def Generate_Body_List(self):
+
+		self.length = random.randint(1,10)
+
+		for i in range(1,self.length+1):
+
+			self.Set_Color()
+
+			self.Random_Size()
+
+			self.Random_Joint_Axis()
+
+			self.Decide_Link_Position()
+
+			if i==self.length:
+
+				self.linkNameList.append("Torso" + str(i))
+
+				self.linkPositionList.append(self.linkPosition)
+
+				self.materialList.append(self.material)
+
+				self.colorList.append(self.color)
+
+				self.sizeList.append([self.randomX, self.randomY, self.randomZ])
+
+			else:
+
+				self.linkNameList.append("Torso"+str(i))
+
+				self.linkPositionList.append(self.linkPosition)
+
+				self.materialList.append(self.material)
+
+				self.colorList.append(self.color)
+
+				self.sizeList.append([self.randomX,self.randomY,self.randomZ])
+
+				self.jointAxisList.append(self.jointAxis)
+
+				self.jointNameList.append("Torso"+str(i)+"_Torso"+str(i+1))
+
+				self.Random_Joint_Position(i)
+
+				self.jointPositionList.append(self.jointPosition)
+
+				self.jointAxisList.append(self.jointAxis)
+
+	def Generate_First_link_And_Joint(self):
+
+		self.Set_Color()
+
+		self.Random_Size()
+
+		self.Random_Joint_Axis()
+
+		pyrosim.Send_Cube(name="Torso0", pos=[0,0,1], size=[self.randomX, self.randomY, self.randomZ],
+							  materialName=self.material,colorRgba=self.color)
+
+		self.linkNameList.append("Torso0")
+
+		self.linkPositionList.append([0,0,1])
+
+		self.sizeList.append([self.randomX, self.randomY, self.randomZ])
+
+		self.materialList.append(self.material)
+
+		self.colorList.append(self.color)
+
+		pyrosim.Send_Joint(name="Torso0_Torso1", parent="Torso0", child="Torso1", type="revolute",
+							   position=[self.randomX/2,0,1], jointAxis=self.jointAxis)
+
+
+		self.jointNameList.append("Torso0_Torso1")
+
+		self.jointPositionList.append([self.randomX/2,0,1])
+
+		self.pick_axis = "x axis"
+
+		self.jointAxisList.append(self.jointAxis)
+
+		if self.material == 'Green':# generate a neuron
+
+			self.sensors[0] = "Torso0"
+
+		self.motors[0] = "Torso0_Torso1"
+
+	def Generate_Body_From_List(self):
+
+			for i in range(1,len(self.linkNameList)):
+
+				pyrosim.Send_Cube(name=self.linkNameList[i], pos=self.linkPositionList[i], size=self.sizeList[i],
+									  materialName=self.materialList[i],colorRgba=self.colorList[i])
+
+				if self.materialList[i] == "Green": # generate a neuron
+
+					self.sensors[i] = self.linkNameList[i]
+
+			for i in range(1,len(self.jointNameList)):
+
+				pyrosim.Send_Joint(name=self.jointNameList[i], parent=self.linkNameList[i], child=self.linkNameList[i+1], type="revolute",
+								   position=self.jointPositionList[i], jointAxis=self.jointAxisList[i])
+
+				self.motors[i] = self.jointNameList[i]
+
+
 	def Generate_Brain(self):
+
+		self.numMotorNeuron = self.length - 1
 
 		pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
@@ -174,6 +243,92 @@ class SOLUTION:
 	def Set_ID(self, ID):
 
 		self.myID = ID
+
+	def Set_Color(self):
+
+		if random.random() < 0.5:
+
+			self.material = "Green"
+
+			self.color = "0 1.2 0 1.0"
+
+			self.numSensor += 1
+
+		else:
+
+			self.material = "Blue"
+
+			self.color = "0 0 2.5 1.0"
+
+	def Random_Size(self):
+
+		self.randomX = random.uniform(0.2,1)
+
+		self.randomY = random.uniform(0.2,1)
+
+		self.randomZ = random.uniform(0.2,1)
+
+	def Random_Joint_Position(self,i):
+
+		if self.linkPositionList[i][0] !=0:
+
+			self.jointPosition = random.choice([[self.sizeList[i][0]/2,self.sizeList[i][1]/2,0],[self.sizeList[i][0]/2,0,self.sizeList[i][2]/2]])
+
+			if self.jointPosition[1] !=0:
+
+				self.pick_axis = "y axis"
+
+			else:
+
+				self.pick_axis = "z axis"
+
+		elif self.linkPositionList[i][1] != 0:
+
+			self.jointPosition = random.choice([[0, self.sizeList[i][1] / 2, self.sizeList[i][2] / 2],[self.sizeList[i][0]/2,self.sizeList[i][1]/2,0]])
+
+			if self.jointPosition[0] !=0:
+
+				self.pick_axis = "x axis"
+
+			else:
+
+				self.pick_axis = "z axis"
+
+		else:
+
+			self.jointPosition = random.choice([[self.sizeList[i][0]/2,0,self.sizeList[i][2]/2],[0,self.sizeList[i][1]/2,self.sizeList[i][2]/2]])
+
+			if self.jointPosition[0] !=0:
+
+				self.pick_axis = "x axis"
+
+			else:
+
+				self.pick_axis = "y axis"
+
+	def Decide_Link_Position(self):
+
+		if self.pick_axis =="x axis":
+
+			self.linkPosition = [self.randomX/2,0,0]
+
+		elif self.pick_axis == "y axis":
+
+			self.linkPosition = [0,self.randomY/2,0]
+
+		else:
+
+			self.linkPosition = [0,0,self.randomZ/2]
+
+	def Random_Joint_Axis(self):
+
+		self.jointAxis = random.choice(["1 0 0","0 1 0","0 0 1"])
+
+
+
+
+
+
 
 
 

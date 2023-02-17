@@ -2,7 +2,6 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
-import glob
 
 
 class PARALLEL_HILL_CLIMBER:
