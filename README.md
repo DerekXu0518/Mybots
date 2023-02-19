@@ -11,6 +11,9 @@ Used by CHEM_ENG 395 at Northwestern University
 
 Each creature has one root link and a leg that will be randomly generated into free space.
 
+
+
+
 ## Body 
 The body of the creatures ranges from 4 to 10 links 
 
