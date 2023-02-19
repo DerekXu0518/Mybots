@@ -11,7 +11,7 @@ Used by CHEM_ENG 395 at Northwestern University
 
 Each creature has one root link and a leg that will be randomly generated into free space.
 
-
+![alt text](https://github.com/DerekXu0518/Mybots/blob/3D_snake/Images/IMG_0051.jpeg)
 
 
 ## Body 
