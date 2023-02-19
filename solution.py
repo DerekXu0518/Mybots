@@ -86,17 +86,17 @@ class SOLUTION:
 
 		self.Generate_Body_List()
 
-		print(self.linkNameList)
-
 		self.Generate_Body_From_Body_List()
+		print(self.linkNameList)
+		print(self.linkPositionList)
 
 		pyrosim.End()
 
 	def Generate_Body_List(self):
 
-		self.length = random.randint(4,10)
+		self.length = random.randint(2,10)
 
-		for i in range(0,self.length+1):
+		for i in range(self.length+1):
 
 			self.Set_Color()
 
@@ -110,7 +110,7 @@ class SOLUTION:
 
 				self.linkNameList.append("Torso" + str(i))
 
-				self.linkPositionList.append([0,0,1])
+				self.linkPositionList.append([0,0,3])
 
 				self.materialList.append(self.material)
 
@@ -124,7 +124,7 @@ class SOLUTION:
 
 				self.Random_Joint_Position(i)
 
-				self.jointPositionList.append([self.randomX/2,0,1])
+				self.jointPositionList.append([self.randomX/2,0,3])
 
 				self.jointAxisList.append(self.jointAxis)
 
@@ -164,7 +164,6 @@ class SOLUTION:
 
 				self.jointPositionList.append(self.jointPosition)
 
-				self.jointAxisList.append(self.jointAxis)
 
 	def Generate_Body_From_Body_List(self):
 
@@ -244,11 +243,11 @@ class SOLUTION:
 
 	def Random_Size(self):
 
-		self.randomX = random.uniform(0.2,1)
+		self.randomX = random.uniform(0.2, 1)
 
-		self.randomY = random.uniform(0.2,1)
+		self.randomY = random.uniform(0.2, 1)
 
-		self.randomZ = random.uniform(0.2,1)
+		self.randomZ = random.uniform(0.2, 1)
 
 	def Random_Joint_Position(self,i):
 
