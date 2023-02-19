@@ -27,6 +27,8 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.parents[0].Wait_For_Simulation_To_End()
 
+		exit()
+
 		self.Evaluate(self.parents)
 
 		for currentGeneration in range(c.numberOfGenerations):

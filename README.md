@@ -1,20 +1,22 @@
-# 1-D Snake
+# 3-D generated creatures
 This is a project based on r/ludobots MOOC.
 
 Website: https://www.reddit.com/r/ludobots/
 
 Used by CHEM_ENG 395 at Northwestern University
 
-10s video for random generated snakes: https://youtu.be/Zi_XmAeKlag
+10s video for random generated creatures:
+
+## Genotype
+
+Each creature has one root link and a leg that will be randomly generated into free space.
 
 ## Body 
-The body of the snake ranges from 2 to 9 links 
+The body of the creatures ranges from 4 to 10 links 
 
-## Sensors
+## Neuron Networks
 All sensors are randomly generated as 50% probability on each link
 
-## Motors
-Motors are generated on every joint currently.
 
 ## Fitness 
 There is no fitness function used currently.

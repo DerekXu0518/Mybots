@@ -106,7 +106,7 @@ class SOLUTION:
 
 				self.pick_axis = "x axis"
 
-				self.linkNameList.append("Torso" + str(i))
+				self.linkNameList.append("PosTorso" + str(i))
 
 				self.linkPositionList.append([0,0,1])
 
@@ -118,7 +118,7 @@ class SOLUTION:
 
 				self.jointAxisList.append(self.jointAxis)
 
-				self.jointNameList.append("Torso" + str(i) + "_Torso" + str(i + 1))
+				self.jointNameList.append("PosTorso" + str(i) + "_PosTorso" + str(i + 1))
 
 				self.Random_Joint_Position(i)
 
@@ -130,7 +130,7 @@ class SOLUTION:
 
 				self.Decide_Link_Position()
 
-				self.linkNameList.append("Torso" + str(i))
+				self.linkNameList.append("PosTorso" + str(i))
 
 				self.linkPositionList.append(self.linkPosition)
 
@@ -144,7 +144,7 @@ class SOLUTION:
 
 				self.Decide_Link_Position()
 
-				self.linkNameList.append("Torso"+str(i))
+				self.linkNameList.append("PosTorso"+str(i))
 
 				self.linkPositionList.append(self.linkPosition)
 
@@ -156,7 +156,7 @@ class SOLUTION:
 
 				self.jointAxisList.append(self.jointAxis)
 
-				self.jointNameList.append("Torso"+str(i)+"_Torso"+str(i+1))
+				self.jointNameList.append("PosTorso"+str(i)+"_PosTorso"+str(i+1))
 
 				self.Random_Joint_Position(i)
 
