@@ -87,14 +87,12 @@ class SOLUTION:
 		self.Generate_Body_List()
 
 		self.Generate_Body_From_Body_List()
-		print(self.linkNameList)
-		print(self.linkPositionList)
 
 		pyrosim.End()
 
 	def Generate_Body_List(self):
 
-		self.length = random.randint(2,10)
+		self.length = random.randint(4,10)
 
 		for i in range(self.length+1):
 
@@ -110,7 +108,7 @@ class SOLUTION:
 
 				self.linkNameList.append("Torso" + str(i))
 
-				self.linkPositionList.append([0,0,3])
+				self.linkPositionList.append([0,0,1])
 
 				self.materialList.append(self.material)
 
@@ -124,7 +122,7 @@ class SOLUTION:
 
 				self.Random_Joint_Position(i)
 
-				self.jointPositionList.append([self.randomX/2,0,3])
+				self.jointPositionList.append([self.randomX/2,0,1])
 
 				self.jointAxisList.append(self.jointAxis)
 
@@ -164,10 +162,9 @@ class SOLUTION:
 
 				self.jointPositionList.append(self.jointPosition)
 
-
 	def Generate_Body_From_Body_List(self):
 
-		for i in range(1,len(self.linkNameList)):
+		for i in range(0,len(self.linkNameList)):
 
 			pyrosim.Send_Cube(name=self.linkNameList[i], pos=self.linkPositionList[i], size=self.sizeList[i],
 									  materialName=self.materialList[i],colorRgba=self.colorList[i])
@@ -176,7 +173,7 @@ class SOLUTION:
 
 				self.sensors.append(self.linkNameList[i])
 
-		for i in range(1,len(self.jointNameList)):
+		for i in range(0,len(self.jointNameList)):
 
 			pyrosim.Send_Joint(name=self.jointNameList[i], parent=self.linkNameList[i], child=self.linkNameList[i+1], type="revolute",
 								   position=self.jointPositionList[i], jointAxis=self.jointAxisList[i])
@@ -289,7 +286,7 @@ class SOLUTION:
 
 	def Decide_Link_Position(self):
 
-		if self.pick_axis =="x axis":
+		if self.pick_axis == "x axis":
 
 			self.linkPosition = [self.randomX/2,0,0]
 
