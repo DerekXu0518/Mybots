@@ -12,6 +12,8 @@ class SOLUTION:
 
 		self.myID = nextAvailableID
 
+		self.listID = 0
+
 		self.sensors = []
 
 		self.motors = []
@@ -52,9 +54,9 @@ class SOLUTION:
 
 		self.Generate_Brain()
 
-		#2 & > 1
 
-		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" &")
+
+		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" 2 & > 1 &")
 
 	def Wait_For_Simulation_To_End(self):
 
@@ -84,7 +86,9 @@ class SOLUTION:
 
 		pyrosim.Start_URDF("body"+str(self.myID)+".urdf")
 
-		self.Generate_Body_List()
+		if self.listID == 0:
+
+			self.Generate_Body_List()
 
 		self.Generate_Body_From_Body_List()
 
@@ -161,6 +165,8 @@ class SOLUTION:
 				self.Random_Joint_Position(i)
 
 				self.jointPositionList.append(self.jointPosition)
+
+				self.listID +=1
 
 	def Generate_Body_From_Body_List(self):
 
@@ -302,6 +308,28 @@ class SOLUTION:
 
 		self.jointAxis = random.choice(["1 0 0","0 1 0","0 0 1"])
 
+	def Clear_lists(self):
+
+		self.linkNameList.clear()
+
+		self.sizeList.clear()
+
+		self.linkPositionList.clear()
+
+		self.materialList.clear()
+
+		self.colorList.clear()
+
+		# jointlist
+		self.jointNameList.clear()
+
+		self.jointPositionList.clear()
+
+		self.jointAxisList.clear()
+
+		self.sensors.clear()
+
+		self.motors.clear()
 
 
 

@@ -3,6 +3,7 @@ import pybullet as p
 import pybullet_data
 from world import WORLD
 from robot import ROBOT
+import constants as c
 
 
 class SIMULATION:
@@ -27,7 +28,7 @@ class SIMULATION:
             self.robot.Sense(t)
             self.robot.Think()
             self.robot.Act()
-            if self.directOrGUI == 'GUI':
+            if self.directOrGUI == 'GUI' and c.sleepDuringSimulation == "on":
                 time.sleep(1 / 100)
 
     def Get_Fitness(self):

@@ -10,6 +10,7 @@ class PARALLEL_HILL_CLIMBER:
 
 		os.system("rm brain*.nndf")
 		os.system("rm Fitness*.txt")
+		os.system("rm body*.urdf")
 
 		self.parents ={}
 
@@ -26,8 +27,6 @@ class PARALLEL_HILL_CLIMBER:
 		self.parents[0].Start_Simulation("GUI")
 
 		self.parents[0].Wait_For_Simulation_To_End()
-
-		exit()
 
 		self.Evaluate(self.parents)
 
