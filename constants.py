@@ -11,9 +11,9 @@ frontLegFrequency = 10.5
 frontLegPhaseOffset = 0.0
 
 # active variables
-numberOfGenerations = 5
+numberOfGenerations = 3
 
-populationSize = 1
+populationSize = 2
 
 sleepDuringSimulation = "off"
 

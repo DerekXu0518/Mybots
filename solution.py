@@ -54,9 +54,7 @@ class SOLUTION:
 
 		self.Generate_Brain()
 
-
-
-		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" 2 & > 1 &")
+		os.system("python3 simulate.py " + directOrGUI + " " + str(self.myID)+" 2&>1 &")
 
 	def Wait_For_Simulation_To_End(self):
 
@@ -66,13 +64,17 @@ class SOLUTION:
 
 		f = open("Fitness" + str(self.myID) + ".txt", 'r')
 
-		self.overallFitness = f.readlines()
+		#self.overallFitness = f.readlines()
+
+		self.fitness = f.read()
 
 		f.close()
 
-		self.xfitness = float(self.overallFitness[0])
+		#self.xfitness = float(self.overallFitness[0])
 
-		self.yfitness = float(self.overallFitness[1])
+		#self.yfitness = float(self.overallFitness[1])
+
+		self.distance =float(self.fitness)
 
 		os.system("rm Fitness" + str(self.myID) + ".txt")
 
@@ -179,6 +181,8 @@ class SOLUTION:
 
 				self.sensors.append(self.linkNameList[i])
 
+				self.numSensorNeuron += 1
+
 		for i in range(0,len(self.jointNameList)):
 
 			pyrosim.Send_Joint(name=self.jointNameList[i], parent=self.linkNameList[i], child=self.linkNameList[i+1], type="revolute",
@@ -218,11 +222,32 @@ class SOLUTION:
 
 	def Mutate(self):
 
+		self.linkListIndex = random.randint(0,len(self.linkNameList))
+
+		#Mutate sensors
+
+		print("This is the index:"+str(self.linkListIndex))
+
+		if self.materialList[self.linkListIndex] == "Green":
+
+			self.materialList[self.linkListIndex] = "Blue"
+
+			self.colorList[self.linkListIndex] = "0 0 2.5 1.0"
+
+		else:
+
+			self.materialList[self.linkListIndex] = "Green"
+
+			self.colorList[self.linkListIndex] = "0 1.2 0 1.0"
+
+		#Mutate synapses
 		randomRow = random.randint(0,len(self.weights) -1)
 
 		randomColumn = random.randint(0,len(self.weights[0]) -1)
 
 		self.weights[randomRow, randomColumn] = random.random()*2-1
+
+
 
 	def Set_ID(self, ID):
 
@@ -235,8 +260,6 @@ class SOLUTION:
 			self.material = "Green"
 
 			self.color = "0 1.2 0 1.0"
-
-			self.numSensorNeuron += 1
 
 		else:
 
