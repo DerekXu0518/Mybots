@@ -140,6 +140,4 @@ class PARALLEL_HILL_CLIMBER:
 
 		f.close()
 
-		numpy.save("data/OveralFitness",self.parents[parent_key].distance)
-
 

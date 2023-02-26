@@ -222,12 +222,9 @@ class SOLUTION:
 
 	def Mutate(self):
 
-		self.linkListIndex = random.randint(0,len(self.linkNameList))
+		self.linkListIndex = random.randint(0,len(self.linkNameList)-1)
 
 		#Mutate sensors
-
-		print("This is the index:"+str(self.linkListIndex))
-
 		if self.materialList[self.linkListIndex] == "Green":
 
 			self.materialList[self.linkListIndex] = "Blue"
