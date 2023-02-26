@@ -106,8 +106,6 @@ class SOLUTION:
 
 			self.Random_Size()
 
-			self.Random_Joint_Axis()
-
 			if i == 0:
 
 				self.pick_axis = "x axis"
@@ -122,15 +120,13 @@ class SOLUTION:
 
 				self.sizeList.append([self.randomX, self.randomY, self.randomZ])
 
-				self.jointAxisList.append(self.jointAxis)
+				self.jointAxisList.append(self.Random_Joint_Axis())
 
 				self.jointNameList.append("PosTorso" + str(i) + "_PosTorso" + str(i + 1))
 
 				self.Random_Joint_Position(i)
 
 				self.jointPositionList.append([self.randomX/2,0,1])
-
-				self.jointAxisList.append(self.jointAxis)
 
 			elif i==self.length:
 
@@ -160,7 +156,7 @@ class SOLUTION:
 
 				self.sizeList.append([self.randomX,self.randomY,self.randomZ])
 
-				self.jointAxisList.append(self.jointAxis)
+				self.jointAxisList.append(self.Random_Joint_Axis())
 
 				self.jointNameList.append("PosTorso"+str(i)+"_PosTorso"+str(i+1))
 
@@ -181,8 +177,6 @@ class SOLUTION:
 
 				self.sensors.append(self.linkNameList[i])
 
-				self.numSensorNeuron += 1
-
 		for i in range(0,len(self.jointNameList)):
 
 			pyrosim.Send_Joint(name=self.jointNameList[i], parent=self.linkNameList[i], child=self.linkNameList[i+1], type="revolute",
@@ -193,6 +187,8 @@ class SOLUTION:
 	def Generate_Brain(self):
 
 		self.numMotorNeuron = len(self.motors)
+
+		self.numSensorNeuron = len(self.sensors)
 
 		pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
@@ -216,9 +212,16 @@ class SOLUTION:
 
 				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensorNeuron, weight=self.weights[currentRow][currentColumn])
 
-		self.neuronId = 0
 
 		pyrosim.End()
+
+		self.neuronId = 0
+
+		print(self.motors)
+		print(self.sensors)
+		self.sensors.clear()
+
+		self.motors.clear()
 
 	def Mutate(self):
 
@@ -242,16 +245,15 @@ class SOLUTION:
 
 		self.sizeList[self.linkListIndex] = [self.randomX,self.randomY,self.randomZ]
 
-		print(self.linkListIndex)
+		self.Mutate_Joint_Position()
 
-		if self.jointPositionList[self.linkListIndex][0] != 0:
-			self.jointPositionList[self.linkListIndex][0] = self.randomX/2
+		# Mutate Joint Axis
+		self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
 
-		if self.jointPositionList[self.linkListIndex][1] != 0:
-			self.jointPositionList[self.linkListIndex][1] = self.randomY / 2
+		# Add a link at the end
+		if random.random()<0.5:
 
-		if self.jointPositionList[self.linkListIndex][2] != 0:
-			self.jointPositionList[self.linkListIndex][2] = self.randomZ / 2
+			self.Add_Link_In_The_End()
 
 		# Mutate synapses
 		randomRow = random.randint(0,len(self.weights) -1)
@@ -259,8 +261,6 @@ class SOLUTION:
 		randomColumn = random.randint(0,len(self.weights[0]) -1)
 
 		self.weights[randomRow, randomColumn] = random.random()*2-1
-
-
 
 	def Set_ID(self, ID):
 
@@ -342,30 +342,46 @@ class SOLUTION:
 
 	def Random_Joint_Axis(self):
 
-		self.jointAxis = random.choice(["1 0 0","0 1 0","0 0 1"])
+		return random.choice(["1 0 0","0 1 0","0 0 1"])
 
-	def Clear_lists(self):
+	def Mutate_Joint_Position(self):
 
-		self.linkNameList.clear()
+		if self.jointPositionList[self.linkListIndex][0] != 0:
+			self.jointPositionList[self.linkListIndex][0] = self.randomX/2
 
-		self.sizeList.clear()
+		if self.jointPositionList[self.linkListIndex][1] != 0:
+			self.jointPositionList[self.linkListIndex][1] = self.randomY / 2
 
-		self.linkPositionList.clear()
+		if self.jointPositionList[self.linkListIndex][2] != 0:
+			self.jointPositionList[self.linkListIndex][2] = self.randomZ / 2
 
-		self.materialList.clear()
+	def Add_Link_In_The_End(self):
 
-		self.colorList.clear()
+		self.Set_Color()
 
-		# jointlist
-		self.jointNameList.clear()
+		self.Random_Size()
 
-		self.jointPositionList.clear()
+		nextLinkID = len(self.linkNameList)+1
 
-		self.jointAxisList.clear()
+		self.jointAxisList.append(self.Random_Joint_Axis())
 
-		self.sensors.clear()
+		self.jointNameList.append("PosTorso" + str(nextLinkID-1) + "_PosTorso" + str(nextLinkID))
 
-		self.motors.clear()
+		self.Random_Joint_Position(nextLinkID-2)
+
+		self.jointPositionList.append(self.jointPosition)
+
+		self.Decide_Link_Position()
+
+		self.linkNameList.append("PosTorso" + str(nextLinkID))
+
+		self.linkPositionList.append(self.linkPosition)
+
+		self.materialList.append(self.material)
+
+		self.colorList.append(self.color)
+
+		self.sizeList.append([self.randomX, self.randomY, self.randomZ])
 
 
 

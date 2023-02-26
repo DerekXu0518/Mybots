@@ -16,6 +16,8 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.parents ={}
 
+		self.Best_Parent = None
+
 		self.nextAvailableID = 0
 
 		for i in range(c.populationSize):
@@ -91,8 +93,6 @@ class PARALLEL_HILL_CLIMBER:
 
 	def Show_Best(self):
 
-		self.Best_Parent = None
-
 		Best_Parent_xFitness = 99999
 
 		Best_Parent_yFitness = 99999
@@ -100,6 +100,7 @@ class PARALLEL_HILL_CLIMBER:
 		Best_Parent_distance = 0
 
 		for parent_key in self.parents.keys():
+
 			if self.parents[parent_key].distance > Best_Parent_distance:
 				# Best_Parent_xFitness = self.parents[parent_key].xfitness
 
@@ -117,7 +118,6 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.Best_Parent.Start_Simulation("GUI")
 
-
 	def Evaluate(self, solutions):
 
 		for i in range(c.populationSize):
@@ -130,7 +130,7 @@ class PARALLEL_HILL_CLIMBER:
 
 	def Write_Overall_Fitness(self):
 
-		f = open("OverallFitness.txt", 'a')
+		f = open("OverallFitness"+str(c.numOfRun)+".txt", 'a')
 
 		for parent_key in self.parents.keys():
 
