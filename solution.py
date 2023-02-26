@@ -98,7 +98,7 @@ class SOLUTION:
 
 	def Generate_Body_List(self):
 
-		self.length = random.randint(4,10)
+		self.length = random.randint(4,6)
 
 		for i in range(self.length+1):
 
@@ -222,9 +222,9 @@ class SOLUTION:
 
 	def Mutate(self):
 
-		self.linkListIndex = random.randint(0,len(self.linkNameList)-1)
+		self.linkListIndex = random.randint(1,len(self.linkNameList)-2)
 
-		#Mutate sensors
+		# Mutate sensors
 		if self.materialList[self.linkListIndex] == "Green":
 
 			self.materialList[self.linkListIndex] = "Blue"
@@ -237,7 +237,23 @@ class SOLUTION:
 
 			self.colorList[self.linkListIndex] = "0 1.2 0 1.0"
 
-		#Mutate synapses
+		# Mutate random body size
+		self.Random_Size()
+
+		self.sizeList[self.linkListIndex] = [self.randomX,self.randomY,self.randomZ]
+
+		print(self.linkListIndex)
+
+		if self.jointPositionList[self.linkListIndex][0] != 0:
+			self.jointPositionList[self.linkListIndex][0] = self.randomX/2
+
+		if self.jointPositionList[self.linkListIndex][1] != 0:
+			self.jointPositionList[self.linkListIndex][1] = self.randomY / 2
+
+		if self.jointPositionList[self.linkListIndex][2] != 0:
+			self.jointPositionList[self.linkListIndex][2] = self.randomZ / 2
+
+		# Mutate synapses
 		randomRow = random.randint(0,len(self.weights) -1)
 
 		randomColumn = random.randint(0,len(self.weights[0]) -1)
