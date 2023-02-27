@@ -38,11 +38,11 @@ class SOLUTION:
 
 		self.jointAxisList = []
 
+		self.weights = []
+
 		random.seed(0)
 
 		numpy.random.seed(0)
-
-		#self.weights = numpy.random.rand(4,5) * 2 - 1
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -120,7 +120,7 @@ class SOLUTION:
 
 			if i == 0:
 
-				self.pick_axis = "x axis"
+				self.pick_axis ="x axis"
 
 				self.linkNameList.append("PosTorso" + str(i))
 
@@ -132,13 +132,14 @@ class SOLUTION:
 
 				self.sizeList.append([self.randomX, self.randomY, self.randomZ])
 
+				#self.sizeList.append([1,1,1])
+
 				self.jointAxisList.append(self.Random_Joint_Axis())
 
 				self.jointNameList.append("PosTorso" + str(i) + "_PosTorso" + str(i + 1))
 
-				self.Random_Joint_Position(i)
-
 				self.jointPositionList.append([self.randomX/2,0,1])
+				#self.jointPositionList.append([1/ 2, 0, 1])
 
 			elif i==self.length:
 

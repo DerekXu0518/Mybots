@@ -97,7 +97,7 @@ class PARALLEL_HILL_CLIMBER:
 
 		Best_Parent_yFitness = 99999
 
-		Best_Parent_distance = 0
+		Best_Parent_distance = -999
 
 		for parent_key in self.parents.keys():
 
