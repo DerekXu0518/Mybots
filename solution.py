@@ -40,9 +40,9 @@ class SOLUTION:
 
 		self.jointAxisList = []
 
-		#random.seed(0)
+		random.seed(0)
 
-		#numpy.random.seed(0)
+		numpy.random.seed(0)
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -260,16 +260,22 @@ class SOLUTION:
 		# Mutate Joint Axis
 			self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
 
-		# Add a link at the end
-		if random.random()<0.5 and self.myID < c.populationSize*c.numberOfGenerations/5:
+		# Add a link at the end or remove a link at the end
+		if self.myID < c.populationSize*c.numberOfGenerations/5:
 
-			self.Add_Link_In_The_End()
+			if random.random()<0.5:
 
-		# Remove a link at the end
+				if random.random()<0.5:
 
+					self.Add_Link_In_The_End()
+
+				else:
+
+					self.Remove_A_Link_In_The_End()
 
 		# Mutate synapses
 		if self.myID > c.populationSize*c.numberOfGenerations*4/5:
+
 			randomRow = random.randint(0,len(self.weights) -1)
 
 			randomColumn = random.randint(0,len(self.weights[0]) -1)
@@ -318,7 +324,8 @@ class SOLUTION:
 
 		elif self.linkPositionList[i][1] != 0:
 
-			self.jointPosition = random.choice([[0, self.sizeList[i][1] / 2, self.sizeList[i][2] / 2],[self.sizeList[i][0]/2,self.sizeList[i][1]/2,0]])
+			self.jointPosition = random.choice([[0, self.sizeList[i][1] / 2, self.sizeList[i][2] / 2]
+				,[self.sizeList[i][0]/2,self.sizeList[i][1]/2,0]])
 
 			if self.jointPosition[0] !=0:
 
@@ -330,7 +337,8 @@ class SOLUTION:
 
 		else:
 
-			self.jointPosition = random.choice([[self.sizeList[i][0]/2,0,self.sizeList[i][2]/2],[0,self.sizeList[i][1]/2,self.sizeList[i][2]/2]])
+			self.jointPosition = random.choice([[self.sizeList[i][0]/2,0,self.sizeList[i][2]/2],[0,self.sizeList[i][1]/2
+				,self.sizeList[i][2]/2]])
 
 			if self.jointPosition[0] !=0:
 
@@ -399,11 +407,12 @@ class SOLUTION:
 
 	def Remove_A_Link_In_The_End(self):
 
-		self.overallLists = [self.linkNameList,self.sizeList,self.linkPositionList,self.materialList,self.colorList,self.jointNameList ,self.jointPositionList,self.jointAxisList]
+		self.overallLists = [self.linkNameList,self.sizeList,self.linkPositionList,self.materialList,self.colorList
+			,self.jointNameList,self.jointPositionList,self.jointAxisList]
 
-		for l in self.overallLists:
+		for bodyList in self.overallLists:
 
-			l.pop()
+			bodyList.pop()
 
 
 
