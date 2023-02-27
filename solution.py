@@ -20,14 +20,12 @@ class SOLUTION:
 
 		self.neuronId = 0
 
-		self.numSensorNeuron = 0
-
 		#linklist
 		self.linkNameList = []
 
 		self.sizeList = []
 
-		self.linkPositionList=[]
+		self.linkPositionList = []
 
 		self.materialList = []
 
@@ -43,6 +41,8 @@ class SOLUTION:
 		random.seed(0)
 
 		numpy.random.seed(0)
+
+		#self.weights = numpy.random.rand(4,5) * 2 - 1
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -196,11 +196,13 @@ class SOLUTION:
 
 			self.motors.append(self.jointNameList[i])
 
+			self.numMotorNeuron = len(self.motors)
+
+			self.numSensorNeuron = len(self.sensors)
+
+			self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
+
 	def Generate_Brain(self):
-
-		self.numMotorNeuron = len(self.motors)
-
-		self.numSensorNeuron = len(self.sensors)
 
 		pyrosim.Start_NeuralNetwork("brain"+str(self.myID)+".nndf")
 
@@ -215,8 +217,6 @@ class SOLUTION:
 			pyrosim.Send_Motor_Neuron(name=self.neuronId, jointName=self.motors[i])
 
 			self.neuronId +=1
-
-		self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
 
 		for currentRow in range(self.numSensorNeuron):
 
@@ -250,7 +250,7 @@ class SOLUTION:
 			self.colorList[self.linkListIndex] = "0 1.2 0 1.0"
 
 		# Mutate random body size
-		if self.myID < c.populationSize*c.numberOfGenerations/2:
+		#if self.myID < c.populationSize*c.numberOfGenerations/2:
 			self.Random_Size()
 
 			self.sizeList[self.linkListIndex] = [self.randomX,self.randomY,self.randomZ]
@@ -258,23 +258,23 @@ class SOLUTION:
 			self.Mutate_Joint_Position()
 
 		# Mutate Joint Axis
-			self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
+		#	self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
 
 		# Add a link at the end or remove a link at the end
-		if self.myID < c.populationSize*c.numberOfGenerations/5:
+		#if self.myID < c.populationSize*c.numberOfGenerations/5:
 
-			if random.random()<0.5:
+			#if random.random()<0.5:
 
-				if random.random()<0.5:
+				#if random.random()<0.5:
 
-					self.Add_Link_In_The_End()
+					#self.Add_Link_In_The_End()
 
-				else:
+				#else:
 
-					self.Remove_A_Link_In_The_End()
+					#self.Remove_A_Link_In_The_End()
 
 		# Mutate synapses
-		if self.myID > c.populationSize*c.numberOfGenerations*4/5:
+		#if self.myID > c.populationSize*c.numberOfGenerations*4/5:
 
 			randomRow = random.randint(0,len(self.weights) -1)
 
