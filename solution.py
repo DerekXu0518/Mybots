@@ -62,13 +62,25 @@ class SOLUTION:
 
 			time.sleep(0.01)
 
-		f = open("Fitness" + str(self.myID) + ".txt", 'r')
+		while True:
+
+			f = open("Fitness"+str(self.myID)+".txt", "r")
+
+			content = f.read()
+
+			if content != "":
+
+				self.fitness = float(content)
+
+				f.close()
+
+				break
+
+			else:
+
+				f.close()
 
 		#self.overallFitness = f.readlines()
-
-		self.fitness = f.read()
-
-		f.close()
 
 		#self.xfitness = float(self.overallFitness[0])
 
@@ -212,13 +224,10 @@ class SOLUTION:
 
 				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensorNeuron, weight=self.weights[currentRow][currentColumn])
 
-
 		pyrosim.End()
 
 		self.neuronId = 0
 
-		print(self.motors)
-		print(self.sensors)
 		self.sensors.clear()
 
 		self.motors.clear()
@@ -241,26 +250,31 @@ class SOLUTION:
 			self.colorList[self.linkListIndex] = "0 1.2 0 1.0"
 
 		# Mutate random body size
-		self.Random_Size()
+		if self.myID < c.populationSize*c.numberOfGenerations/2:
+			self.Random_Size()
 
-		self.sizeList[self.linkListIndex] = [self.randomX,self.randomY,self.randomZ]
+			self.sizeList[self.linkListIndex] = [self.randomX,self.randomY,self.randomZ]
 
-		self.Mutate_Joint_Position()
+			self.Mutate_Joint_Position()
 
 		# Mutate Joint Axis
-		self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
+			self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
 
 		# Add a link at the end
-		if random.random()<0.5:
+		if random.random()<0.5 and self.myID < c.populationSize*c.numberOfGenerations/5:
 
 			self.Add_Link_In_The_End()
 
+		# Remove a link at the end
+
+
 		# Mutate synapses
-		randomRow = random.randint(0,len(self.weights) -1)
+		if self.myID > c.populationSize*c.numberOfGenerations*4/5:
+			randomRow = random.randint(0,len(self.weights) -1)
 
-		randomColumn = random.randint(0,len(self.weights[0]) -1)
+			randomColumn = random.randint(0,len(self.weights[0]) -1)
 
-		self.weights[randomRow, randomColumn] = random.random()*2-1
+			self.weights[randomRow, randomColumn] = random.random()*2-1
 
 	def Set_ID(self, ID):
 
@@ -361,7 +375,7 @@ class SOLUTION:
 
 		self.Random_Size()
 
-		nextLinkID = len(self.linkNameList)+1
+		nextLinkID = len(self.linkNameList)
 
 		self.jointAxisList.append(self.Random_Joint_Axis())
 
@@ -382,6 +396,16 @@ class SOLUTION:
 		self.colorList.append(self.color)
 
 		self.sizeList.append([self.randomX, self.randomY, self.randomZ])
+
+	def Remove_A_Link_In_The_End(self):
+
+		self.overallLists = [self.linkNameList,self.sizeList,self.linkPositionList,self.materialList,self.colorList,self.jointNameList ,self.jointPositionList,self.jointAxisList]
+
+		for l in self.overallLists:
+
+			l.pop()
+
+
 
 
 

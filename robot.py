@@ -15,8 +15,8 @@ class ROBOT:
         self.solutionID = solutionID
         self.robotId = p.loadURDF("body"+self.solutionID+".urdf")
         self.nn = NEURAL_NETWORK("brain"+self.solutionID+".nndf")
-        #os.system("rm brain" + self.solutionID + ".nndf")
-       # os.system("rm body" + self.solutionID + ".urdf")
+        os.system("rm brain" + self.solutionID + ".nndf")
+        os.system("rm body" + self.solutionID + ".urdf")
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
@@ -50,7 +50,7 @@ class ROBOT:
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
         yPosition = basePosition[1]
-        distance = math.sqrt(xPosition**2+yPosition**2)
+        distance = yPosition
         f=open("temp"+self.solutionID+".txt", 'w')
         rewrite = "mv temp"+str(self.solutionID)+".txt Fitness" + str(self.solutionID)+".txt"
         os.system(rewrite)

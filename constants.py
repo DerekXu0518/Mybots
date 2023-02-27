@@ -11,13 +11,15 @@ frontLegFrequency = 10.5
 frontLegPhaseOffset = 0.0
 
 # active variables
-numberOfGenerations = 0
+numberOfGenerations = 10
 
-populationSize = 1
+populationSize = 10
 
-sleepDuringSimulation = "o"
+sleepDuringSimulation = "on"
 
-motorJointRange = 0.5
+sleepTime = 1/500
+
+motorJointRange = 0.3
 
 numOfRun = 0
 #

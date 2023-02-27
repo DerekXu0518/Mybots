@@ -33,6 +33,6 @@ for i, max_values in enumerate(all_max_values):
 plt.xlabel('Generations')
 plt.ylabel('Best Fitness')
 plt.title('Fitness curve')
-plt.xticks(range(1, len(max_values) + 1))
+#plt.xticks(range(1, len(max_values) + 1))
 plt.legend()
 plt.show()

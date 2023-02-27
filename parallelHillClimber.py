@@ -109,6 +109,7 @@ class PARALLEL_HILL_CLIMBER:
 				Best_Parent_distance = self.parents[parent_key].distance
 
 				self.Best_Parent = self.parents[parent_key]
+				print(parent_key)
 
 		# print("This is best xFitness and yFitness: "+str(Best_Parent_xFitness)+" and "+str(Best_Parent_yFitness))
 
