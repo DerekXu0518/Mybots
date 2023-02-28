@@ -11,7 +11,7 @@ frontLegFrequency = 10.5
 frontLegPhaseOffset = 0.0
 
 # active variables
-numberOfGenerations = 5
+numberOfGenerations = 10
 
 populationSize = 1
 
