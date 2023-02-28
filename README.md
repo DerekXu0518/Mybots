@@ -31,7 +31,9 @@ In this way, no three continuous links will be in the same axis, so that the ove
 
 The visual ontology will be the picture below:
 
-![alt text](https://github.com/DerekXu0518/Mybots/blob/3D_snake/Images/IMG_0052.jpeg)
+Note that the second leg can be created as either red or blue
+
+![alt text](https://github.com/DerekXu0518/Mybots/blob/3D_snake/Images/37F32942-D5AA-434E-AD8B-A67177B96EC5_1_201_a.jpeg)
 
 Neuron Networks
 ---
@@ -65,6 +67,10 @@ or
 A link at the end of chain will be removed with the corresponding joint.
 
 3. Synapse weights will also change for each evolution.
+
+A visual representation is shown below:
+
+![alt text](https://github.com/DerekXu0518/Mybots/blob/3D_snake/Images/872209AF-8310-4622-B5ED-20D558B4F2D5_1_201_a.jpeg)
 
 
 Fitness 
