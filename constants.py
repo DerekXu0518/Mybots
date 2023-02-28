@@ -23,7 +23,7 @@ motorJointRange = 0.3
 
 numOfRun = 0
 
-seed = 1
+seed = 6
 #
 
 numSensorNeurons = 1

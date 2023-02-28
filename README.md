@@ -6,7 +6,7 @@ Website: https://www.reddit.com/r/ludobots/
 
 Used in CHEM_ENG 395 by prof. Sam Kreigman at Northwestern University in winter 2023.
 
-10s video for randomly generated creatures(Note that the best
+10s video for evolution of 3D creatures: https://youtu.be/I9IPIa3FQuU
 
 Start the simulation
 ---
@@ -75,7 +75,7 @@ A visual representation is shown below:
 
 Fitness 
 ---
-Current fitness is based on how far the robot can move in postive y-axis(y-axis value)
+Current fitness is based on how far the robot can move in postive y-axis(y-axis value of the root link)
 
 A plot of five fitness curves  using 1-5 seeds is shown below. Due to time constraint and computer limitation, current population are 10 and generations are 50.
 This will increase for future final project to demonstrate more apparent evolution.
