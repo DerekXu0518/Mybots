@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Define a list of file names to read in
-file_names = ['OverallFitness0.txt']
+file_names = ['OverallFitness0.txt','OverallFitness1.txt','OverallFitness2.txt','OverallFitness3.txt','OverallFitness4.txt']
 
 # Initialize an empty list to store the data from all files
 all_data = []
@@ -28,7 +28,7 @@ for data in all_data:
 
 # Plot all the maximum values in one plot
 for i, max_values in enumerate(all_max_values):
-    plt.plot(range(1, len(max_values) + 1), max_values, label=f'Run {i+1}')
+    plt.plot(range(1, len(max_values) + 1), max_values, label=f'Seed {i+1}')
 
 plt.xlabel('Generations')
 plt.ylabel('Best Fitness')

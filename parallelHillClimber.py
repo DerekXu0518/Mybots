@@ -12,7 +12,7 @@ class PARALLEL_HILL_CLIMBER:
 		os.system("rm brain*.nndf")
 		os.system("rm Fitness*.txt")
 		os.system("rm body*.urdf")
-		os.system("rm OverallFitness*.txt")
+		#os.system("rm OverallFitness*.txt")
 
 		self.parents ={}
 
@@ -115,8 +115,6 @@ class PARALLEL_HILL_CLIMBER:
 		# print("This is the best weights:"+str(self.Best_Parent.weights))
 
 		print("This is best distance:" + str(Best_Parent_distance))
-
-		#self.parents[0].Start_Simulation("GUI")
 
 		self.Best_Parent.Start_Simulation("GUI")
 

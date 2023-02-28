@@ -40,9 +40,9 @@ class SOLUTION:
 
 		self.weights = []
 
-		random.seed(0)
+		random.seed(c.seed)
 
-		numpy.random.seed(0)
+		numpy.random.seed(c.seed)
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -132,14 +132,11 @@ class SOLUTION:
 
 				self.sizeList.append([self.randomX, self.randomY, self.randomZ])
 
-				#self.sizeList.append([1,1,1])
-
 				self.jointAxisList.append(self.Random_Joint_Axis())
 
 				self.jointNameList.append("PosTorso" + str(i) + "_PosTorso" + str(i + 1))
 
 				self.jointPositionList.append([self.randomX/2,0,1])
-				#self.jointPositionList.append([1/ 2, 0, 1])
 
 			elif i==self.length:
 
@@ -251,31 +248,30 @@ class SOLUTION:
 			self.colorList[self.linkListIndex] = "0 1.2 0 1.0"
 
 		# Mutate random body size
-		#if self.myID < c.populationSize*c.numberOfGenerations/2:
+		if random.random()<0.5:
+
 			self.Random_Size()
 
 			self.sizeList[self.linkListIndex] = [self.randomX,self.randomY,self.randomZ]
 
-			self.Mutate_Joint_Position()
+			self.Mutate_Joint_and_Link_Position()
 
 		# Mutate Joint Axis
-		#	self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
+		#self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
 
 		# Add a link at the end or remove a link at the end
-		#if self.myID < c.populationSize*c.numberOfGenerations/5:
+		if random.random()<0.5:
 
-			#if random.random()<0.5:
+			if random.random()<0.5:
 
-				#if random.random()<0.5:
+				self.Add_Link_In_The_End()
 
-					#self.Add_Link_In_The_End()
+			else:
 
-				#else:
-
-					#self.Remove_A_Link_In_The_End()
+				self.Remove_A_Link_In_The_End()
 
 		# Mutate synapses
-		#if self.myID > c.populationSize*c.numberOfGenerations*4/5:
+		if self.numSensorNeuron !=0:
 
 			randomRow = random.randint(0,len(self.weights) -1)
 
@@ -367,16 +363,31 @@ class SOLUTION:
 
 		return random.choice(["1 0 0","0 1 0","0 0 1"])
 
-	def Mutate_Joint_Position(self):
+	def Mutate_Joint_and_Link_Position(self):
 
 		if self.jointPositionList[self.linkListIndex][0] != 0:
+
 			self.jointPositionList[self.linkListIndex][0] = self.randomX/2
 
+		if self.linkPositionList[self.linkListIndex][0] !=0:
+
+			self.linkPositionList[self.linkListIndex][0] = self.randomX/2
+
 		if self.jointPositionList[self.linkListIndex][1] != 0:
-			self.jointPositionList[self.linkListIndex][1] = self.randomY / 2
+
+			self.jointPositionList[self.linkListIndex][1] = self.randomY/2
+
+		if self.linkPositionList[self.linkListIndex][1] != 0:
+
+			self.linkPositionList[self.linkListIndex][1] = self.randomY / 2
 
 		if self.jointPositionList[self.linkListIndex][2] != 0:
-			self.jointPositionList[self.linkListIndex][2] = self.randomZ / 2
+
+			self.jointPositionList[self.linkListIndex][2] = self.randomZ/2
+
+		if self.linkPositionList[self.linkListIndex][2] != 0:
+
+			self.linkPositionList[self.linkListIndex][2] = self.randomZ / 2
 
 	def Add_Link_In_The_End(self):
 
