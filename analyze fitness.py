@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 
 # Define a list of file names to read in
-file_names = ['OverallFitness0.txt','OverallFitness1.txt','OverallFitness2.txt','OverallFitness3.txt','OverallFitness4.txt']
+#file_names = ['OverallFitness1.txt','OverallFitness2.txt','OverallFitness3.txt','OverallFitness4.txt','OverallFitness5.txt']
+file_names = ['OverallFitness5.txt']
 
 # Initialize an empty list to store the data from all files
 all_data = []

@@ -38,11 +38,17 @@ class SOLUTION:
 
 		self.jointAxisList = []
 
-		self.weights = []
+		self.numMotorNeuron = 0
+
+		self.numSensorNeuron = 0
 
 		random.seed(c.seed)
 
 		numpy.random.seed(c.seed)
+
+		self.Generate_Body_List()
+
+		self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -99,10 +105,6 @@ class SOLUTION:
 	def Generate_Body(self):
 
 		pyrosim.Start_URDF("body"+str(self.myID)+".urdf")
-
-		if self.listID == 0:
-
-			self.Generate_Body_List()
 
 		self.Generate_Body_From_Body_List()
 
@@ -174,7 +176,9 @@ class SOLUTION:
 
 				self.jointPositionList.append(self.jointPosition)
 
-				self.listID +=1
+		self.numSensorNeuron = self.materialList.count("Green")
+
+		self.numMotorNeuron = len(self.jointNameList)
 
 	def Generate_Body_From_Body_List(self):
 
@@ -193,12 +197,6 @@ class SOLUTION:
 								   position=self.jointPositionList[i], jointAxis=self.jointAxisList[i])
 
 			self.motors.append(self.jointNameList[i])
-
-			self.numMotorNeuron = len(self.motors)
-
-			self.numSensorNeuron = len(self.sensors)
-
-			self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
 
 	def Generate_Brain(self):
 
@@ -271,13 +269,19 @@ class SOLUTION:
 				self.Remove_A_Link_In_The_End()
 
 		# Mutate synapses
-		if self.numSensorNeuron !=0:
 
-			randomRow = random.randint(0,len(self.weights) -1)
+		self.numSensorNeuron = self.materialList.count("Green")
 
-			randomColumn = random.randint(0,len(self.weights[0]) -1)
+		self.numMotorNeuron = len(self.jointNameList)
 
-			self.weights[randomRow, randomColumn] = random.random()*2-1
+		self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
+
+			#randomRow = random.randint(0,len(self.weights) -1)
+
+			#randomColumn = random.randint(0,len(self.weights[0]) -1)
+
+			#self.weights[randomRow, randomColumn] = random.random()*2-1
+
 
 	def Set_ID(self, ID):
 
