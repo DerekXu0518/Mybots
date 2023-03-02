@@ -42,13 +42,15 @@ class SOLUTION:
 
 		self.numSensorNeuron = 0
 
-		random.seed(c.seed)
+		#random.seed(c.seed)
 
-		numpy.random.seed(c.seed)
+		#numpy.random.seed(c.seed)
 
 		self.Generate_Body_List()
 
-		self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
+		self.weights_1 = numpy.random.rand(self.numSensorNeuron, c.numHiddenNeuron) * 2 - 1
+
+		self.weights_2 = numpy.random.rand(c.numHiddenNeuron, self.numMotorNeuron) * 2 - 1
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -214,11 +216,24 @@ class SOLUTION:
 
 			self.neuronId +=1
 
+		for i in range(c.numHiddenNeuron):
+
+			pyrosim.Send_Hidden_Neuron(name=self.neuronId)
+
+			self.neuronId +=1
+
 		for currentRow in range(self.numSensorNeuron):
+
+			for currentColumn in range(c.numHiddenNeuron):
+
+				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensorNeuron+self.numMotorNeuron, weight=self.weights_1[currentRow][currentColumn])
+
+		for currentRow in range(c.numHiddenNeuron):
 
 			for currentColumn in range(self.numMotorNeuron):
 
-				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensorNeuron, weight=self.weights[currentRow][currentColumn])
+				pyrosim.Send_Synapse(sourceNeuronName=currentRow+self.numSensorNeuron+self.numMotorNeuron, targetNeuronName=currentColumn+self.numSensorNeuron, weight=self.weights_2[currentRow][currentColumn])
+
 
 		pyrosim.End()
 
@@ -255,7 +270,7 @@ class SOLUTION:
 			self.Mutate_Joint_and_Link_Position()
 
 		# Mutate Joint Axis
-		#self.jointAxisList[self.linkListIndex] = self.Random_Joint_Axis()
+		self.jointAxisList[self.linkListIndex-1] = self.Random_Joint_Axis()
 
 		# Add a link at the end or remove a link at the end
 		if random.random()<0.5:
@@ -266,7 +281,9 @@ class SOLUTION:
 
 			else:
 
-				self.Remove_A_Link_In_The_End()
+				if len(self.linkNameList)>3:
+
+					self.Remove_A_Link_In_The_End()
 
 		# Mutate synapses
 
@@ -274,14 +291,9 @@ class SOLUTION:
 
 		self.numMotorNeuron = len(self.jointNameList)
 
-		self.weights = numpy.random.rand(self.numSensorNeuron, self.numMotorNeuron) * 2 - 1
+		self.weights_1 = numpy.random.rand(self.numSensorNeuron, c.numHiddenNeuron) * 2 - 1
 
-			#randomRow = random.randint(0,len(self.weights) -1)
-
-			#randomColumn = random.randint(0,len(self.weights[0]) -1)
-
-			#self.weights[randomRow, randomColumn] = random.random()*2-1
-
+		self.weights_2 = numpy.random.rand(c.numHiddenNeuron, self.numMotorNeuron) * 2 - 1
 
 	def Set_ID(self, ID):
 
