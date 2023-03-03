@@ -20,9 +20,13 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.nextAvailableID = 0
 
+		seedNum = c.seed
+
 		for i in range(c.populationSize):
 
-			self.parents[i] = SOLUTION(self.nextAvailableID)
+			self.parents[i] = SOLUTION(self.nextAvailableID,seedNum)
+
+			seedNum += c.populationSize
 
 			self.nextAvailableID += 1
 

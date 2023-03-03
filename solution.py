@@ -8,7 +8,7 @@ import constants as c
 
 class SOLUTION:
 
-	def __init__(self, nextAvailableID):
+	def __init__(self, nextAvailableID,seedNum):
 
 		self.myID = nextAvailableID
 
@@ -41,10 +41,6 @@ class SOLUTION:
 		self.numMotorNeuron = 0
 
 		self.numSensorNeuron = 0
-
-		#random.seed(c.seed)
-
-		#numpy.random.seed(c.seed)
 
 		self.Generate_Body_List()
 
