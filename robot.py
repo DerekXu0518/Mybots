@@ -50,7 +50,7 @@ class ROBOT:
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
         yPosition = basePosition[1]
-        distance = math.sqrt(yPosition**2 + xPosition**2)
+        distance = math.sqrt(yPosition**2+xPosition**2)-abs(xPosition)/2
         f=open("temp"+self.solutionID+".txt", 'w')
         rewrite = "mv temp"+str(self.solutionID)+".txt Fitness" + str(self.solutionID)+".txt"
         os.system(rewrite)

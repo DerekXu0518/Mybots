@@ -44,9 +44,11 @@ class SOLUTION:
 
 		self.Generate_Body_List()
 
-		self.weights_1 = numpy.random.rand(self.numSensorNeuron, c.numHiddenNeuron) * 2 - 1
+		self.numHiddenNeuron = random.randint(0, 5)
 
-		self.weights_2 = numpy.random.rand(c.numHiddenNeuron, self.numMotorNeuron) * 2 - 1
+		self.weights_1 = numpy.random.rand(self.numSensorNeuron, self.numHiddenNeuron) * 2 - 1
+
+		self.weights_2 = numpy.random.rand(self.numHiddenNeuron, self.numMotorNeuron) * 2 - 1
 
 	def Start_Simulation(self, directOrGUI):
 
@@ -84,12 +86,6 @@ class SOLUTION:
 
 				f.close()
 
-		#self.overallFitness = f.readlines()
-
-		#self.xfitness = float(self.overallFitness[0])
-
-		#self.yfitness = float(self.overallFitness[1])
-
 		self.distance =float(self.fitness)
 
 		os.system("rm Fitness" + str(self.myID) + ".txt")
@@ -97,6 +93,8 @@ class SOLUTION:
 	def Create_World(self):
 
 		pyrosim.Start_SDF("world.sdf")
+
+		#pyrosim.Send_Cube(pos=[0,2,0.5],size=[3,1,1],mass=100)
 
 		pyrosim.End()
 
@@ -212,7 +210,7 @@ class SOLUTION:
 
 			self.neuronId +=1
 
-		for i in range(c.numHiddenNeuron):
+		for i in range(self.numHiddenNeuron):
 
 			pyrosim.Send_Hidden_Neuron(name=self.neuronId)
 
@@ -220,11 +218,11 @@ class SOLUTION:
 
 		for currentRow in range(self.numSensorNeuron):
 
-			for currentColumn in range(c.numHiddenNeuron):
+			for currentColumn in range(self.numHiddenNeuron):
 
 				pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumn+self.numSensorNeuron+self.numMotorNeuron, weight=self.weights_1[currentRow][currentColumn])
 
-		for currentRow in range(c.numHiddenNeuron):
+		for currentRow in range(self.numHiddenNeuron):
 
 			for currentColumn in range(self.numMotorNeuron):
 
@@ -287,9 +285,11 @@ class SOLUTION:
 
 		self.numMotorNeuron = len(self.jointNameList)
 
-		self.weights_1 = numpy.random.rand(self.numSensorNeuron, c.numHiddenNeuron) * 2 - 1
+		self.numHiddenNeuron = random.randint(0,5)
 
-		self.weights_2 = numpy.random.rand(c.numHiddenNeuron, self.numMotorNeuron) * 2 - 1
+		self.weights_1 = numpy.random.rand(self.numSensorNeuron, self.numHiddenNeuron) * 2 - 1
+
+		self.weights_2 = numpy.random.rand(self.numHiddenNeuron, self.numMotorNeuron) * 2 - 1
 
 	def Set_ID(self, ID):
 
