@@ -1,5 +1,5 @@
 # active variables
-numberOfGenerations = 10
+numberOfGenerations = 500
 
 populationSize = 10
 
@@ -11,7 +11,7 @@ timestep = 1000
 
 motorJointRange = 0.3
 
-numOfRun = 5
+numOfRun = 1
 
 seed = 1
 

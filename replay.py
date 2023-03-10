@@ -1,5 +1,9 @@
-from parallelHillClimber import PARALLEL_HILL_CLIMBER
+import pickle
 
-phc = PARALLEL_HILL_CLIMBER()
+with open('bestResult.pickle', 'rb') as f:
 
-phc.Best_Parent.Start_Simulation("GUI")
+    phc = pickle.load(f)
+
+    f.close()
+
+phc.Show_Best()
