@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 # Define a list of file names to read in
 file_names = ['OverallFitness1.txt','OverallFitness2.txt','OverallFitness3.txt','OverallFitness4.txt','OverallFitness5.txt']
-#file_names = ['OverallFitness5.txt']
+#file_names = ['OverallFitness1.txt']
 
 # Initialize an empty list to store the data from all files
 all_data = []
@@ -33,7 +33,7 @@ for i, max_values in enumerate(all_max_values):
 
 plt.xlabel('Generations')
 plt.ylabel('Best Fitness')
-plt.title('Fitness curve')
+plt.title('Control Group Fitness curve')
 #plt.xticks(range(1, len(max_values) + 1))
 plt.legend()
 plt.show()

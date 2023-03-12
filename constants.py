@@ -13,9 +13,9 @@ sleepTime = 1/200
 
 motorJointRange = 0.3
 
-numOfRun = 1
+numOfRun = 5
 
-seed = 1
+seed = 5
 #
 
 numSensorNeurons = 1

@@ -12,7 +12,7 @@ class PARALLEL_HILL_CLIMBER:
 		os.system("rm brain*.nndf")
 		os.system("rm Fitness*.txt")
 		os.system("rm body*.urdf")
-		os.system("rm OverallFitness*.txt")
+		#os.system("rm OverallFitness*.txt")
 
 		self.parents ={}
 
