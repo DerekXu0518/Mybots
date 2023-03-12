@@ -2,28 +2,20 @@ import numpy
 import random
 
 
-# define variables
-Amplitude = numpy.pi/4
-Frequency = 10
-Offset = 0
-frontLegAmplitude = 0.9
-frontLegFrequency = 10.5
-frontLegPhaseOffset = 0.0
-
 # active variables
-numberOfGenerations = 50
+numberOfGenerations = 500
 
 populationSize = 10
 
 sleepDuringSimulation = "on"
 
-sleepTime = 1/1000
+sleepTime = 1/200
 
 motorJointRange = 0.3
 
-numOfRun = 5
+numOfRun = 1
 
-seed = 5
+seed = 1
 #
 
 numSensorNeurons = 1
