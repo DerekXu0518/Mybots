@@ -105,6 +105,21 @@ A visual representation is shown below:
 
 ![alt text](https://github.com/DerekXu0518/Mybots/blob/3D_snake/Images/872209AF-8310-4622-B5ED-20D558B4F2D5_1_201_a.jpeg)
 
+Selection
+---
+Selection of the parallel hill climber works as follows:
+
+A parent and child are compared for their fitness value. If child's fitness is better than parent, replace the parent with child.
+Otherwise, keep the parent. This comparison will continue for many times equal to number of generations.
+
+For parallel hill climber, these comparison will be performed in parallel. The number of comparison happened at once equal to population size.
+
+When all populations have selected their best parent after certain generations, these parent will be compared one by one to find the best result of the whole PHC.
+
+A visual demonstration is shown below:
+
+![alt text](https://github.com/DerekXu0518/Mybots/blob/Final_Project/Images/3B8FC9A5-621E-4A2F-80C0-7E04515CAF82_1_201_a.jpeg)
+
 Parameters of simulation
 ---
 - Population size = 10
@@ -119,6 +134,8 @@ Fitness
 Current fitness is based on how far the robot can move in postive y-axis(y-axis value of the root link)
 
 Two plots of fitness curves from control and experimental group are shown here.
+
+Each point of the curve corresponds to the best parent in that generation.
 
 ![alt text](https://github.com/DerekXu0518/Mybots/blob/Final_Project/Images/Slide1.png)
 
@@ -151,7 +168,7 @@ Without them, I cannot make such a big progress considering I almost had no codi
 ## In the end
 
 Although I personally think this class is still quite immature and needs a lot of improvements, I still wish this class can continue
-to give students from different background (not only CS) a chance to look at this brand new field of study that I believe 
+to give students from different background (not only CS) a chance to look at this brand-new field of study that I believe 
 worth knowing for all kinds of insiprations.
 
 
