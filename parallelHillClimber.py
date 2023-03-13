@@ -52,7 +52,7 @@ class PARALLEL_HILL_CLIMBER:
 
 		self.Print()
 
-		self.Write_Overall_Fitness()
+		#self.Write_Overall_Fitness()
 
 		self.Select()
 
