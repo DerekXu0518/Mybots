@@ -148,6 +148,13 @@ I purpose the following plans for the future:
 I want to give special thanks to our TA Donna Hooshmand and all students (especially Nic :) ) both online and offline. 
 Without them, I cannot make such a big progress considering I almost had no coding experience before this class.
 
+## In the end
+
+Although I personally think this class is still quite immature and needs a lot of improvements, I still wish this class can continue
+to give students from different background (not only CS) a chance to look at this brand new field of study that I believe 
+worth knowing for all kinds of insiprations.
+
+
 
 
 
